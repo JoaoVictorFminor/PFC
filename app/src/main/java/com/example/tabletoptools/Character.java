@@ -1,103 +1,191 @@
 package com.example.tabletoptools;
 
+import android.content.Context;
+
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Character {
 
-    int age;
-    String name;
+    public static int age;
+    public static String name;
 
-    int pp;
-    int dp;
-    int mp;
-    int sp;
+    public static int pp;
+    public static int dp;
+    public static int mp;
+    public static int sp;
 
     //Base Value
 
-    int baseValuePhys;
-    int baseValueDex;
-    int baseValueMent;
-    int baseValueSoc;
+    public static int baseValuePhys;
+    public static int baseValueDex;
+    public static int baseValueMent;
+    public static int baseValueSoc;
 
     //Total Value
 
-    int totalValuePhys;
-    int totalValueDex;
-    int totalValueMent;
-    int totalValueSoc;
+    public static int totalValuePhys;
+    public static int totalValueDex;
+    public static int totalValueMent;
+    public static int totalValueSoc;
 
 
     //Attribute Modifier
-    int modPhys;
-    int modDex;
-    int modMent;
-    int modSoc;
+    public static int modPhys;
+    public static int modDex;
+    public static int modMent;
+    public static int modSoc;
 
 
     //HealthPoints
 
-    int head;
-    int lArm;
-    int rArm;
-    int torso;
-    int lLeg;
-    int rLeg;
+    public static int head;
+    public static int lArm;
+    public static int rArm;
+    public static int torso;
+    public static int lLeg;
+    public static int rLeg;
 
 
     //PhysSkillsValues
-    int melleWeapons;
-    int brawl;
-    int imposition;
-    int Athletics;
-    int range;
+    public static int melleWeapons;
+    public static int brawl;
+    public static int imposition;
+    public static int Athletics;
+    public static int range;
 
     //MentalSkillsValues
 
-    int math;
-    int forgery;
-    int alchemy;
-    int naturalSciences;
-    int philiology;
-    int strategy;
-    int engineering;
-    int law;
-    int appraise;
-    int investigate;
-    int medicine;
-    int occult;
-    int psychology;
-    int firstAid;
-    int survival;
+    public static int math;
+    public static int forgery;
+    public static int alchemy;
+    public static int naturalSciences;
+    public static int philiology;
+    public static int strategy;
+    public static int engineering;
+    public static int law;
+    public static int appraise;
+    public static int investigate;
+    public static int medicine;
+    public static int occult;
+    public static int psychology;
+    public static int firstAid;
+    public static int survival;
 
     //DexteritySkillsValue
 
-    int lockPicking;
-    int sleightOfHand;
-    int horseRiding;
-    int locksmith;
-    int firearms;
-    int stealth;
-    int throwable;
-    int perception;
-    int craft;
+    public static int lockPicking;
+    public static int sleightOfHand;
+    public static int horseRiding;
+    public static int locksmith;
+    public static int firearms;
+    public static int stealth;
+    public static int throwable;
+    public static int perception;
+    public static int craft;
 
     //SocialSkillsValue;
 
-    int diplomacy;
-    int intimidation;
-    int streetWise;
-    int negotiation;
-    int deception;
-    int action;
-    int flirt;
+    public static int diplomacy;
+    public static int intimidation;
+    public static int streetWise;
+    public static int negotiation;
+    public static int deception;
+    public static int action;
+    public static int flirt;
 
-    private void calculateAttributeMod(int totalAttributeValue) {
-        modPhys = (int) Math.round((age - 10) / 2.0);
-        modDex = (int) Math.round((age - 10) / 2.0);
-        modMent = (int) Math.round((age - 10) / 2.0);
-        modSoc = (int) Math.round((age - 10) / 2.0);
+
+    public void readCharacterFromJson(Context context, String characterName) {
+        try {
+            // Define the folder name and construct the file path
+            String folderName = "Characters";
+            File directory = context.getExternalFilesDir(folderName);
+            if (directory == null) {
+                throw new IOException("Could not access application external storage.");
+            }
+            String sanitizedFilename = characterName.replaceAll("[^a-zA-Z0-9\\._]+", "_") + ".json";
+            File file = new File(directory, sanitizedFilename);
+
+            // Read the content of the file
+            FileInputStream fis = new FileInputStream(file);
+            StringBuilder builder = new StringBuilder();
+            int ch;
+            while((ch = fis.read()) != -1){
+                builder.append((char)ch);
+            }
+            String jsonString = builder.toString();
+
+            // Parse the JSON string
+            JSONObject characterJson = new JSONObject(jsonString);
+
+            // Set character attributes from the JSON object
+            name = characterJson.optString("name");
+            age = characterJson.optInt("age");
+            baseValuePhys = characterJson.optInt("baseValuePhys");
+            baseValueDex = characterJson.optInt("baseValueDex");
+            baseValueMent = characterJson.optInt("baseValueMent");
+            baseValueSoc = characterJson.optInt("baseValueSoc");
+            melleWeapons = characterJson.optInt("melleWeapons");
+            brawl = characterJson.optInt("brawl");
+            imposition = characterJson.optInt("imposition");
+            Athletics = characterJson.optInt("Athletics");
+            range = characterJson.optInt("range");
+            math = characterJson.optInt("math");
+            forgery = characterJson.optInt("forgery");
+            alchemy = characterJson.optInt("alchemy");
+            naturalSciences = characterJson.optInt("naturalSciences");
+            philiology = characterJson.optInt("philiology");
+            strategy = characterJson.optInt("strategy");
+            engineering = characterJson.optInt("engineering");
+            law = characterJson.optInt("law");
+            appraise = characterJson.optInt("appraise");
+            investigate = characterJson.optInt("investigate");
+            medicine = characterJson.optInt("medicine");
+            occult = characterJson.optInt("occult");
+            psychology = characterJson.optInt("psychology");
+            firstAid = characterJson.optInt("firstAid");
+            survival = characterJson.optInt("survival");
+            lockPicking = characterJson.optInt("lockPicking");
+            sleightOfHand = characterJson.optInt("sleightOfHand");
+            horseRiding = characterJson.optInt("horseRiding");
+            locksmith = characterJson.optInt("locksmith");
+            firearms = characterJson.optInt("firearms");
+            stealth = characterJson.optInt("stealth");
+            throwable = characterJson.optInt("throwable");
+            perception = characterJson.optInt("perception");
+            craft = characterJson.optInt("craft");
+            diplomacy = characterJson.optInt("diplomacy");
+            intimidation = characterJson.optInt("intimidation");
+            streetWise = characterJson.optInt("streetWise");
+            negotiation = characterJson.optInt("negotiation");
+            deception = characterJson.optInt("deception");
+            action = characterJson.optInt("action");
+            flirt = characterJson.optInt("flirt");
+
+            // calculate any derived attributes after loading
+            calculateAttributeMod(); // Example method call, adjust based on your class structure
+            calculatePoints();
+            calculateHp();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle error - for example, by setting default values or logging an error
+            System.err.println("ERROR READING CHARACTER FROM JSON " + e);
+        }
+    }
+    static void calculateAttributeMod() {
+        modPhys = (int) Math.round((Character.calculateTotalValue(1) - 10) / 2.0);
+        modDex = (int) Math.round((Character.calculateTotalValue(2) - 10) / 2.0);
+        modMent = (int) Math.round((Character.calculateTotalValue(3) - 10) / 2.0);
+        modSoc = (int) Math.round((Character.calculateTotalValue(4)- 10) / 2.0);
 
     }
 
-    public int calculateTotalValue(int type) {
+    public static int calculateTotalValue(int type) {
         int totalvalue;
         if (type == 1) {
             int result;
@@ -127,7 +215,7 @@ public class Character {
 
     }
 
-    public void calculatePoints() {
+    public static void calculatePoints() {
         // Calculate the common part of the formula
         int ageRelatedValue = (int) Math.round(age * 0.05);
 
@@ -141,73 +229,107 @@ public class Character {
 
 
 
-    public void calculateHp() {
+    public static void calculateHp() {
+        double calculationPart = (age - 10) / 3.0;
+        int rounded = (int) Math.round(calculationPart); // Round to nearest integer
+        head = 15 - rounded + baseValuePhys;
+        lArm = 30 - rounded + baseValuePhys;
+        rArm = 30 - rounded + baseValuePhys;
+        lLeg = 30 - rounded + baseValuePhys;
+        rLeg = 30 - rounded + baseValuePhys;
+        torso = 50 - rounded + baseValuePhys;
+    }
 
-        double roundedValue = Math.round((age - 10) / 3.0);
-        double result = roundedValue + baseValuePhys;
-        head = (int) (15 - result);
-        lArm = (int) (30 - result);
-        rArm = (int) (30 - result);
-        lLeg = (int) (30 - result);
-        rLeg = (int) (30 - result);
-        torso = (int) (50 - result);
+    public void saveCharacterToJson(Context context) {
+        try {
+            // Creating a JSONObject to store character data
+            JSONObject characterJson = new JSONObject();
+
+            // Populating the JSON object with character attributes
+            characterJson.put("name", name);
+            characterJson.put("age", age);
+            characterJson.put("baseValuePhys", baseValuePhys);
+            characterJson.put("baseValueDex", baseValueDex);
+            characterJson.put("baseValueMent", baseValueMent);
+            characterJson.put("baseValueSoc", baseValueSoc);
+            characterJson.put("melleWeapons", melleWeapons);
+            characterJson.put("brawl", brawl);
+            characterJson.put("imposition", imposition);
+            characterJson.put("Athletics", Athletics);
+            characterJson.put("range", range);
+            characterJson.put("math", math);
+            characterJson.put("forgery", forgery);
+            characterJson.put("alchemy", alchemy);
+            characterJson.put("naturalSciences", naturalSciences);
+            characterJson.put("philiology", philiology);
+            characterJson.put("strategy", strategy);
+            characterJson.put("engineering", engineering);
+            characterJson.put("law", law);
+            characterJson.put("appraise", appraise);
+            characterJson.put("investigate", investigate);
+            characterJson.put("medicine", medicine);
+            characterJson.put("occult", occult);
+            characterJson.put("psychology", psychology);
+            characterJson.put("firstAid", firstAid);
+            characterJson.put("survival", survival);
+            characterJson.put("lockPicking", lockPicking);
+            characterJson.put("sleightOfHand", sleightOfHand);
+            characterJson.put("horseRiding", horseRiding);
+            characterJson.put("locksmith", locksmith);
+            characterJson.put("firearms", firearms);
+            characterJson.put("stealth", stealth);
+            characterJson.put("throwable", throwable);
+            characterJson.put("perception", perception);
+            characterJson.put("craft", craft);
+            characterJson.put("diplomacy", diplomacy);
+            characterJson.put("intimidation", intimidation);
+            characterJson.put("streetWise", streetWise);
+            characterJson.put("negotiation", negotiation);
+            characterJson.put("deception", deception);
+            characterJson.put("action", action);
+            characterJson.put("flirt", flirt);
+
+            // Converting the JSONObject to a String representation
+            String characterString = characterJson.toString();
+
+            // Specify the folder name where characters will be saved
+            String folderName = "Characters";
+
+            // Use getExternalFilesDir to get access to the app-specific external storage directory
+            // Note: No additional permissions are required for this directory in Android 10 (API level 29) and above
+            File directory = context.getExternalFilesDir(folderName);
+
+            if (directory != null && !directory.exists()) {
+                directory.mkdirs(); // Make sure the directory exists
+            }
+
+            // Define the filename using the character's name and ensure it is a valid filename
+            String filename = name.replaceAll("[^a-zA-Z0-9\\._]+", "_") + ".json"; // Simple sanitization
+
+            File file = new File(directory, filename);
+
+            // Write the JSON string to the file in the specified directory
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                fos.write(characterString.getBytes());
+                System.out.println("Character saved to " + file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public void calculateSkillMod() {
-        // Calculate modifiers based on total attribute values
-
-        // Apply Physical Modifiers to Physical Skills
-        melleWeapons += modPhys;
-        brawl += modPhys;
-        imposition += modPhys;
-        Athletics += modPhys;
-        range += modPhys;
-
-        // Apply Dexterity Modifiers to Dexterity Skills
-        lockPicking += modDex;
-        sleightOfHand += modDex;
-        horseRiding += modDex;
-        locksmith += modDex;
-        firearms += modDex;
-        stealth += modDex;
-        throwable += modDex;
-        perception += modDex;
-        craft += modDex;
-
-        // Apply Mental Modifiers to Mental Skills
-        math += modMent;
-        forgery += modMent;
-        alchemy += modMent;
-        naturalSciences += modMent;
-        philiology += modMent;
-        strategy += modMent;
-        engineering += modMent;
-        law += modMent;
-        appraise += modMent;
-        investigate += modMent;
-        medicine += modMent;
-        occult += modMent;
-        psychology += modMent;
-        firstAid += modMent;
-        survival += modMent;
-
-        // Apply Social Modifiers to Social Skills
-        diplomacy += modSoc;
-        intimidation += modSoc;
-        streetWise += modSoc;
-        negotiation += modSoc;
-        deception += modSoc;
-        action += modSoc;
-        flirt += modSoc;
+    private static void printCharacterInfo(Character character) {
+        // Display basic character info, points, and health
+        System.out.println("Character Information:");
+        System.out.println("Name: " + character.name + ", Age: " + character.age);
+        System.out.println("Base Values - Physical: " + character.baseValuePhys + ", Dexterity: " + character.baseValueDex +
+                ", Mental: " + character.baseValueMent + ", Social: " + character.baseValueSoc);
+        System.out.println("Points - Physical Points: " + character.pp + ", Dexterity Points: " + character.dp +
+                ", Mental Points: " + character.mp + ", Social Points: " + character.sp);
+        System.out.println("Health Points - Head: " + character.head + ", Left Arm: " + character.lArm + ", Right Arm: " + character.rArm +
+                ", Torso: " + character.torso + ", Left Leg: " + character.lLeg + ", Right Leg: " + character.rLeg);
     }
-
-
-
-
-
-
-
-
-
 }
