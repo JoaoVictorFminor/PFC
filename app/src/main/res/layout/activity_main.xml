@@ -6,13 +6,118 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bannerConstraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/diceConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bannerConstraintLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/diceDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5sp"
+            android:padding="16dp"
+            android:text="0"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonD4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- First Line of Buttons -->
+        <Button
+            android:id="@+id/buttonD4"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="16dp"
+            android:text="d4"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonD6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diceDisplay" />
+
+        <Button
+            android:id="@+id/buttonD6"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="16dp"
+            android:text="d6"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonD8"
+            app:layout_constraintStart_toEndOf="@+id/buttonD4"
+            app:layout_constraintTop_toBottomOf="@+id/diceDisplay" />
+
+        <Button
+            android:id="@+id/buttonD8"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="16dp"
+            android:text="d8"
+
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonD6"
+            app:layout_constraintTop_toBottomOf="@+id/diceDisplay" />
+
+        <!-- Second Line of Buttons -->
+        <Button
+            android:id="@+id/buttonD12"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="16dp"
+            android:text="d12"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonD20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonD4" />
+
+        <Button
+            android:id="@+id/buttonD20"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="16dp"
+            android:text="d20"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonD100"
+            app:layout_constraintStart_toEndOf="@+id/buttonD12"
+            app:layout_constraintTop_toBottomOf="@+id/buttonD6" />
+
+        <Button
+            android:id="@+id/buttonD100"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="16dp"
+            android:text="d100"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonD20"
+            app:layout_constraintTop_toBottomOf="@+id/buttonD8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
