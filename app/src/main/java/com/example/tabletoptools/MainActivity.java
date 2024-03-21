@@ -3,11 +3,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView gridSocTotalValue;
     private TextView gridSocBaseValue;
     private TextView gridSocMod;
+
+    private TextView healthHead, healthTorso, healthLeftArm, healthLeftLeg, healthRightArm, healthRightLeg;
     private Button buttonD4;
     private Button buttonD6;
     private Button buttonD8;
@@ -81,6 +88,14 @@ public class MainActivity extends AppCompatActivity {
         gridSocTotalValue = findViewById(R.id.gridSocTotalValue);
         gridSocBaseValue = findViewById(R.id.gridSocBaseValue);
         gridSocMod = findViewById(R.id.gridSocMod);
+
+        healthHead = findViewById(R.id.healthHeadGrid);
+        healthTorso = findViewById(R.id.healthTorsoGrid);
+        healthLeftArm = findViewById(R.id.healthTorsolArm); // Please check if this ID is correct. It might be a typo.
+        healthLeftLeg = findViewById(R.id.healthlLegGrid);
+        healthRightArm = findViewById(R.id.healthrArmGrid);
+        healthRightLeg = findViewById(R.id.healthrLegGrid);
+
 
         // Initialize the Buttons
         buttonD4 = findViewById(R.id.buttonD4);
@@ -275,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         characterNameTextView.setText(character.name);
-        characterAgeTextView.setText(String.valueOf(character.age));
+        characterAgeTextView.setText("Age: " + String.valueOf(character.age));
 
         gridPhysTotalValue.setText(String.valueOf(character.totalValuePhys));
         gridPhysBaseValue.setText(String.valueOf(character.baseValuePhys));
@@ -293,12 +308,41 @@ public class MainActivity extends AppCompatActivity {
         gridSocBaseValue.setText(String.valueOf(character.baseValueSoc));
         gridSocMod.setText(String.valueOf(character.modSoc));
 
+        healthHead.setText(String.valueOf(Character.head));
+        healthTorso.setText(String.valueOf(Character.torso));
+        healthLeftArm.setText(String.valueOf(Character.lArm));
+        healthLeftLeg.setText(String.valueOf(Character.lLeg));
+        healthRightArm.setText(String.valueOf(Character.rArm));
+        healthRightLeg.setText(String.valueOf(Character.rLeg));
 
 
+
+        initSpinners();
 
         return character;
     }
 
+    private void initSpinners() {
+        // Initialize each spinner with numbers based on the character's health points for each body part
+        initSpinnerWithRange(findViewById(R.id.damageHead), Character.head);
+        initSpinnerWithRange(findViewById(R.id.damageTorso), Character.torso);
+        initSpinnerWithRange(findViewById(R.id.damagelArm), Character.lArm);
+        initSpinnerWithRange(findViewById(R.id.damageLleg), Character.lLeg);
+        initSpinnerWithRange(findViewById(R.id.damagerArm), Character.rArm);
+        initSpinnerWithRange(findViewById(R.id.damagerLeg), Character.rLeg);
+    }
+
+    private void initSpinnerWithRange(Spinner spinner, int maxHealth) {
+        List<String> numbers = new ArrayList<>();
+        // Range from 0 to maxHealth
+        for (int i = 0; i <= maxHealth; i++) {
+            numbers.add(String.valueOf(i));
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numbers);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
 
 
 

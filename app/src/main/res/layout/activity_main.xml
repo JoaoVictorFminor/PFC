@@ -137,7 +137,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:padding="5dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/diceConstraintLayout"
         app:layout_constraintVertical_bias="1.0"
@@ -361,7 +361,231 @@
 
             </GridLayout>
 
+            <TextView
+                android:id="@+id/healthtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
 
+                android:text="Health"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/attributeGrid" />
+
+            <GridLayout
+                android:id="@+id/healthGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="6"
+                android:rowCount="4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/healthtv">
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Body Part" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="HP" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Damage" />
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Body Part" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="HP" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Damage" />
+
+                <!--head-->
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Head" />
+
+                <TextView
+                    android:id="@+id/healthHeadGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0" />
+
+                <Spinner
+                    android:id="@+id/damageHead"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+
+                <!--torso-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Torso" />
+
+                <TextView
+                    android:id="@+id/healthTorsoGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0" />
+
+                <Spinner
+                    android:id="@+id/damageTorso"
+                    android:layout_width="91dp"
+                    android:layout_height="wrap_content" />
+
+                <!--Left Arm-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Left Arm" />
+
+                <TextView
+                    android:id="@+id/healthTorsolArm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0" />
+
+                <Spinner
+                    android:id="@+id/damagelArm"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+
+                <!--Left Leg-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Left Leg" />
+
+                <TextView
+                    android:id="@+id/healthlLegGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0" />
+
+                <Spinner
+                    android:id="@+id/damageLleg"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+
+
+                <!--Right Arm-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Right Arm" />
+
+                <TextView
+                    android:id="@+id/healthrArmGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0" />
+
+                <Spinner
+                    android:id="@+id/damagerArm"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+
+
+                <!--Righjt Leg-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Right Leg" />
+
+                <TextView
+                    android:id="@+id/healthrLegGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="0" />
+
+                <Spinner
+                    android:id="@+id/damagerLeg"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" />
+            </GridLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
