@@ -18,6 +18,24 @@ public class MainActivity extends AppCompatActivity {
     private ImageView profileImageButton;
     private ImageView characterImageButton;
     private TextView diceDisplay;
+    static TextView characterNameTextView;
+    static TextView characterAgeTextView;
+
+    private TextView gridPhysTotalValue;
+    private TextView gridPhysBaseValue;
+    private TextView gridPhysMod;
+
+    private TextView gridDexTotalValue;
+    private TextView gridDexBaseValue;
+    private TextView gridDexMod;
+
+    private TextView gridMentTotalValue;
+    private TextView gridMentBaseValue;
+    private TextView gridMentMod;
+
+    private TextView gridSocTotalValue;
+    private TextView gridSocBaseValue;
+    private TextView gridSocMod;
     private Button buttonD4;
     private Button buttonD6;
     private Button buttonD8;
@@ -32,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Character character = printCharacterInfo();
+
 
 
         // Initialize the ConstraintLayouts
@@ -45,6 +63,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the TextView
         diceDisplay = findViewById(R.id.diceDisplay);
+        characterNameTextView = findViewById(R.id.characterNameTextView);
+        characterAgeTextView = findViewById(R.id.characterAgeTextView);
+
+        gridPhysTotalValue = findViewById(R.id.gridPhysTotalValue);
+        gridPhysBaseValue = findViewById(R.id.gridPhysBaseValue);
+        gridPhysMod = findViewById(R.id.gridPhysMod);
+
+        gridDexTotalValue = findViewById(R.id.gridDexTotalValue);
+        gridDexBaseValue = findViewById(R.id.gridDexBaseValue);
+        gridDexMod = findViewById(R.id.gridDexMod);
+
+        gridMentTotalValue = findViewById(R.id.gridMentTotalValue);
+        gridMentBaseValue = findViewById(R.id.gridMentBaseValue);
+        gridMentMod = findViewById(R.id.gridMentMod);
+
+        gridSocTotalValue = findViewById(R.id.gridSocTotalValue);
+        gridSocBaseValue = findViewById(R.id.gridSocBaseValue);
+        gridSocMod = findViewById(R.id.gridSocMod);
 
         // Initialize the Buttons
         buttonD4 = findViewById(R.id.buttonD4);
@@ -56,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set click listeners for each button
 
-
+        Character character = printCharacterInfo();
 
         buttonD4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static Character printCharacterInfo() {
+    private Character printCharacterInfo() {
         //Character placeholder
         Character character = new Character();
         Character.name = "Raoul Maskelyne";
@@ -147,6 +183,11 @@ public class MainActivity extends AppCompatActivity {
         Character.calculateAttributeMod();
         Character.calculatePoints();
         Character.calculateHp();
+
+        Character.totalValuePhys = Character.calculateTotalValue(1);
+        Character.totalValueDex = Character.calculateTotalValue(2);
+        Character.totalValueMent = Character.calculateTotalValue(3);
+        Character.totalValueSoc = Character.calculateTotalValue(4);
 
 
         character.melleWeapons = 2;
@@ -229,6 +270,31 @@ public class MainActivity extends AppCompatActivity {
         Log.d("CharacterSkills", "Deception: " + character.deception + ", Modifier: " + (character.deception + character.modSoc));
         Log.d("CharacterSkills", "Action: " + character.action + ", Modifier: " + (character.action + character.modSoc));
         Log.d("CharacterSkills", "Flirt: " + character.flirt + ", Modifier: " + (character.flirt + character.modSoc));
+
+
+
+
+        characterNameTextView.setText(character.name);
+        characterAgeTextView.setText(String.valueOf(character.age));
+
+        gridPhysTotalValue.setText(String.valueOf(character.totalValuePhys));
+        gridPhysBaseValue.setText(String.valueOf(character.baseValuePhys));
+        gridPhysMod.setText(String.valueOf(character.modPhys));
+
+        gridDexTotalValue.setText(String.valueOf(character.totalValueDex));
+        gridDexBaseValue.setText(String.valueOf(character.baseValueDex));
+        gridDexMod.setText(String.valueOf(character.modDex));
+
+        gridMentTotalValue.setText(String.valueOf(character.totalValueMent));
+        gridMentBaseValue.setText(String.valueOf(character.baseValueMent));
+        gridMentMod.setText(String.valueOf(character.modMent));
+
+        gridSocTotalValue.setText(String.valueOf(character.totalValueSoc));
+        gridSocBaseValue.setText(String.valueOf(character.baseValueSoc));
+        gridSocMod.setText(String.valueOf(character.modSoc));
+
+
+
 
         return character;
     }
