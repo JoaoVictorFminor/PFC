@@ -43,6 +43,45 @@ public class MainActivity extends AppCompatActivity {
     private TextView gridSocMod;
 
     private TextView healthHead, healthTorso, healthLeftArm, healthLeftLeg, healthRightArm, healthRightLeg;
+
+    private TextView valMeleeWeapons, modMeleeWeapons;
+    private TextView valBrawl, modBrawl;
+    private TextView valImposition, modImposition;
+    private TextView valAthletics, modAthletics;
+    private TextView valRange, modRange;
+    private TextView valMath, modMath;
+    private TextView valForgery, modForgery;
+    private TextView valAlchemy, modAlchemy;
+    private TextView valNaturalSciences, modNaturalSciences;
+    private TextView valPhiliology, modPhiliology;
+    private TextView valStrategy, modStrategy;
+    private TextView valEngineering, modEngineering;
+    private TextView valLaw, modLaw;
+    private TextView valAppraise, modAppraise;
+    private TextView valInvestigate, modInvestigate;
+    private TextView valMedicine, modMedicine;
+    private TextView valOccult, modOccult;
+    private TextView valPsychology, modPsychology;
+    private TextView valFirstAid, modFirstAid;
+    private TextView valSurvival, modSurvival;
+    private TextView valLockPicking, modLockPicking;
+    private TextView valSleightOfHand, modSleightOfHand;
+    private TextView valHorseRiding, modHorseRiding;
+    private TextView valLocksmith, modLocksmith;
+    private TextView valFirearms, modFirearms;
+    private TextView valStealth, modStealth;
+    private TextView valThrowable, modThrowable;
+    private TextView valPerception, modPerception;
+    private TextView valCraft, modCraft;
+    private TextView valDiplomacy, modDiplomacy;
+    private TextView valIntimidation, modIntimidation;
+    private TextView valStreetWise, modStreetWise;
+    private TextView valNegotiation, modNegotiation;
+    private TextView valDeception, modDeception;
+    private TextView valAction, modAction;
+    private TextView valFlirt, modFlirt;
+
+    //_____________________________________________
     private Button buttonD4;
     private Button buttonD6;
     private Button buttonD8;
@@ -91,10 +130,118 @@ public class MainActivity extends AppCompatActivity {
 
         healthHead = findViewById(R.id.healthHeadGrid);
         healthTorso = findViewById(R.id.healthTorsoGrid);
-        healthLeftArm = findViewById(R.id.healthTorsolArm); // Please check if this ID is correct. It might be a typo.
+        healthLeftArm = findViewById(R.id.healthTorsolArm);
         healthLeftLeg = findViewById(R.id.healthlLegGrid);
         healthRightArm = findViewById(R.id.healthrArmGrid);
         healthRightLeg = findViewById(R.id.healthrLegGrid);
+
+        valMeleeWeapons = findViewById(R.id.valMeleeWeapons);
+        modMeleeWeapons = findViewById(R.id.modMeleeWeapons);
+
+        valBrawl = findViewById(R.id.valBrawl);
+        modBrawl = findViewById(R.id.modBrawl);
+
+        valImposition = findViewById(R.id.valImposition);
+        modImposition = findViewById(R.id.modImposition);
+
+        valAthletics = findViewById(R.id.valAthletics);
+        modAthletics = findViewById(R.id.modAthletics);
+
+        valRange = findViewById(R.id.valRange);
+        modRange = findViewById(R.id.modRange);
+
+        valMath = findViewById(R.id.valMath);
+        modMath = findViewById(R.id.modMath);
+
+        valForgery = findViewById(R.id.valForgery);
+        modForgery = findViewById(R.id.modForgery);
+
+        valAlchemy = findViewById(R.id.valAlchemy);
+        modAlchemy = findViewById(R.id.modAlchemy);
+
+        valNaturalSciences = findViewById(R.id.valNaturalSciences);
+        modNaturalSciences = findViewById(R.id.modNaturalSciences);
+
+        valPhiliology = findViewById(R.id.valPhiliology);
+        modPhiliology = findViewById(R.id.modPhiliology);
+
+        valStrategy = findViewById(R.id.valStrategy);
+        modStrategy = findViewById(R.id.modStrategy);
+
+        valEngineering = findViewById(R.id.valEngineering);
+        modEngineering = findViewById(R.id.modEngineering);
+
+        valLaw = findViewById(R.id.valLaw);
+        modLaw = findViewById(R.id.modLaw);
+
+        valAppraise = findViewById(R.id.valAppraise);
+        modAppraise = findViewById(R.id.modAppraise);
+
+        valInvestigate = findViewById(R.id.valInvestigate);
+        modInvestigate = findViewById(R.id.modInvestigate);
+
+        valMedicine = findViewById(R.id.valMedicine);
+        modMedicine = findViewById(R.id.modMedicine);
+
+        valOccult = findViewById(R.id.valOccult);
+        modOccult = findViewById(R.id.modOccult);
+
+        valPsychology = findViewById(R.id.valPsychology);
+        modPsychology = findViewById(R.id.modPsychology);
+
+        valFirstAid = findViewById(R.id.valFirstAid);
+        modFirstAid = findViewById(R.id.modFirstAid);
+
+        valSurvival = findViewById(R.id.valSurvival);
+        modSurvival = findViewById(R.id.modSurvival);
+
+        valLockPicking = findViewById(R.id.valLockPicking);
+        modLockPicking = findViewById(R.id.modLockPicking);
+
+        valSleightOfHand = findViewById(R.id.valSleightOfHand);
+        modSleightOfHand = findViewById(R.id.modSleightOfHand);
+
+        valHorseRiding = findViewById(R.id.valHorseRiding);
+        modHorseRiding = findViewById(R.id.modHorseRiding);
+
+        valLocksmith = findViewById(R.id.valLocksmith);
+        modLocksmith = findViewById(R.id.modLocksmith);
+
+        valFirearms = findViewById(R.id.valFirearms);
+        modFirearms = findViewById(R.id.modFirearms);
+
+        valStealth = findViewById(R.id.valStealth);
+        modStealth = findViewById(R.id.modStealth);
+
+        valThrowable = findViewById(R.id.valThrowable);
+        modThrowable = findViewById(R.id.modThrowable);
+
+        valPerception = findViewById(R.id.valPerception);
+        modPerception = findViewById(R.id.modPerception);
+
+        valCraft = findViewById(R.id.valCraft);
+        modCraft = findViewById(R.id.modCraft);
+
+        valDiplomacy = findViewById(R.id.valDiplomacy);
+        modDiplomacy = findViewById(R.id.modDiplomacy);
+
+        valIntimidation = findViewById(R.id.valIntimidation);
+        modIntimidation = findViewById(R.id.modIntimidation);
+
+        valStreetWise = findViewById(R.id.valStreetWise);
+        modStreetWise = findViewById(R.id.modStreetWise);
+
+        valNegotiation = findViewById(R.id.valNegotiation);
+        modNegotiation = findViewById(R.id.modNegotiation);
+
+        valDeception = findViewById(R.id.valDeception);
+        modDeception = findViewById(R.id.modDeception);
+
+        valAction = findViewById(R.id.valAction);
+        modAction = findViewById(R.id.modAction);
+
+        valFlirt = findViewById(R.id.valFlirt);
+        modFlirt = findViewById(R.id.modFlirt);
 
 
         // Initialize the Buttons
@@ -315,9 +462,52 @@ public class MainActivity extends AppCompatActivity {
         healthRightArm.setText(String.valueOf(Character.rArm));
         healthRightLeg.setText(String.valueOf(Character.rLeg));
 
-
-
         initSpinners();
+
+
+        // Setting Physical Skills Values and Modifiers
+        setSkillValueAndModifier(valMeleeWeapons, modMeleeWeapons, Character.melleWeapons, Character.modPhys);
+        setSkillValueAndModifier(valBrawl, modBrawl, Character.brawl, Character.modPhys);
+        setSkillValueAndModifier(valImposition, modImposition, Character.imposition, Character.modPhys);
+        setSkillValueAndModifier(valAthletics, modAthletics, Character.Athletics, Character.modPhys);
+        setSkillValueAndModifier(valRange, modRange, Character.range, Character.modPhys);
+
+        // Setting Mental Skills Values and Modifiers
+        setSkillValueAndModifier(valMath, modMath, Character.math, Character.modMent);
+        setSkillValueAndModifier(valForgery, modForgery, Character.forgery, Character.modMent);
+        setSkillValueAndModifier(valAlchemy, modAlchemy, Character.alchemy, Character.modMent);
+        setSkillValueAndModifier(valNaturalSciences, modNaturalSciences, Character.naturalSciences, Character.modMent);
+        setSkillValueAndModifier(valPhiliology, modPhiliology, Character.philiology, Character.modMent);
+        setSkillValueAndModifier(valStrategy, modStrategy, Character.strategy, Character.modMent);
+        setSkillValueAndModifier(valEngineering, modEngineering, Character.engineering, Character.modMent);
+        setSkillValueAndModifier(valLaw, modLaw, Character.law, Character.modMent);
+        setSkillValueAndModifier(valAppraise, modAppraise, Character.appraise, Character.modMent);
+        setSkillValueAndModifier(valInvestigate, modInvestigate, Character.investigate, Character.modMent);
+        setSkillValueAndModifier(valMedicine, modMedicine, Character.medicine, Character.modMent);
+        setSkillValueAndModifier(valOccult, modOccult, Character.occult, Character.modMent);
+        setSkillValueAndModifier(valPsychology, modPsychology, Character.psychology, Character.modMent);
+        setSkillValueAndModifier(valFirstAid, modFirstAid, Character.firstAid, Character.modMent);
+        setSkillValueAndModifier(valSurvival, modSurvival, Character.survival, Character.modMent);
+
+        // Setting Dexterity Skills Values and Modifiers
+        setSkillValueAndModifier(valLockPicking, modLockPicking, Character.lockPicking, Character.modDex);
+        setSkillValueAndModifier(valSleightOfHand, modSleightOfHand, Character.sleightOfHand, Character.modDex);
+        setSkillValueAndModifier(valHorseRiding, modHorseRiding, Character.horseRiding, Character.modDex);
+        setSkillValueAndModifier(valLocksmith, modLocksmith, Character.locksmith, Character.modDex);
+        setSkillValueAndModifier(valFirearms, modFirearms, Character.firearms, Character.modDex);
+        setSkillValueAndModifier(valStealth, modStealth, Character.stealth, Character.modDex);
+        setSkillValueAndModifier(valThrowable, modThrowable, Character.throwable, Character.modDex);
+        setSkillValueAndModifier(valPerception, modPerception, Character.perception, Character.modDex);
+        setSkillValueAndModifier(valCraft, modCraft, Character.craft, Character.modDex);
+
+        // Setting Social Skills Values and Modifiers
+        setSkillValueAndModifier(valDiplomacy, modDiplomacy, Character.diplomacy, Character.modSoc);
+        setSkillValueAndModifier(valIntimidation, modIntimidation, Character.intimidation, Character.modSoc);
+        setSkillValueAndModifier(valStreetWise, modStreetWise, Character.streetWise, Character.modSoc);
+        setSkillValueAndModifier(valNegotiation, modNegotiation, Character.negotiation, Character.modSoc);
+        setSkillValueAndModifier(valDeception, modDeception, Character.deception, Character.modSoc);
+        setSkillValueAndModifier(valAction, modAction, Character.action, Character.modSoc);
+        setSkillValueAndModifier(valFlirt, modFlirt, Character.flirt, Character.modSoc);
 
         return character;
     }
@@ -342,6 +532,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numbers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    private void setSkillValueAndModifier(TextView valueTextView, TextView modifierTextView, int skillValue, int attributeModifier) {
+        valueTextView.setText(String.valueOf(skillValue));
+        int skillModifier = skillValue + attributeModifier;
+        String modifierText = skillModifier >= 0 ? "+" + skillModifier : String.valueOf(skillModifier);
+        modifierTextView.setText(modifierText);
     }
 
 
