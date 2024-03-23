@@ -1,6 +1,7 @@
 package com.example.tabletoptools;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -101,23 +102,34 @@ public class Character {
 
     public void readCharacterFromJson(Context context, String characterName) {
         try {
-            // Define the folder name and construct the file path
-            String folderName = "Characters";
-            File directory = context.getExternalFilesDir(folderName);
-            if (directory == null) {
-                throw new IOException("Could not access application external storage.");
-            }
+            // Define the folder name where characters are saved
+            String folderName = "savedcharacter"; // Changed to match the new directory
+
+            // Construct the file path using the internal directory
+            File internalDir = new File(context.getFilesDir(), folderName);
+
+            // Sanitize the characterName to be used as the filename
             String sanitizedFilename = characterName.replaceAll("[^a-zA-Z0-9\\._]+", "_") + ".json";
-            File file = new File(directory, sanitizedFilename);
+
+            // Create a file object for the saved character data
+            File file = new File(internalDir, sanitizedFilename);
+
+            // Check if the character file exists
+            if (!file.exists()) {
+                throw new IOException("Character file does not exist.");
+            }
 
             // Read the content of the file
             FileInputStream fis = new FileInputStream(file);
             StringBuilder builder = new StringBuilder();
             int ch;
-            while((ch = fis.read()) != -1){
-                builder.append((char)ch);
+            while ((ch = fis.read()) != -1) {
+                builder.append((char) ch);
             }
             String jsonString = builder.toString();
+
+            // Close the FileInputStream
+            fis.close();
 
             // Parse the JSON string
             JSONObject characterJson = new JSONObject(jsonString);
@@ -170,6 +182,8 @@ public class Character {
             calculateAttributeMod(); // Example method call, adjust based on your class structure
             calculatePoints();
             calculateHp();
+
+            Log.d("CHARACTERLOAD" , "CHARACTER LOADED WITH SUCCESS");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -289,29 +303,41 @@ public class Character {
             characterJson.put("action", action);
             characterJson.put("flirt", flirt);
 
-            // Converting the JSONObject to a String representation
             String characterString = characterJson.toString();
 
-            // Specify the folder name where characters will be saved
-            String folderName = "Characters";
+            // Define the folder name where characters will be saved
+            String folderName = "savedcharacter";
 
-            // Use getExternalFilesDir to get access to the app-specific external storage directory
-            // Note: No additional permissions are required for this directory in Android 10 (API level 29) and above
-            File directory = context.getExternalFilesDir(folderName);
+            // Getting the internal directory
+            File internalDir = new File(context.getFilesDir(), folderName);
 
-            if (directory != null && !directory.exists()) {
-                directory.mkdirs(); // Make sure the directory exists
+            // Ensure the directory exists
+            if (!internalDir.exists()) {
+                internalDir.mkdirs();
             }
 
             // Define the filename using the character's name and ensure it is a valid filename
-            String filename = name.replaceAll("[^a-zA-Z0-9\\._]+", "_") + ".json"; // Simple sanitization
+            String filename = name.replaceAll("[^a-zA-Z0-9\\._]+", "_") + ".json";
 
-            File file = new File(directory, filename);
+            // Create a file object within the savedcharacter directory
+            File file = new File(internalDir, filename);
 
-            // Write the JSON string to the file in the specified directory
+            // Check if a character file with the same name already exists, and if so, delete it
+            if (file.exists()) {
+                boolean deleted = file.delete();
+                if (deleted) {
+                    Log.d("CHARACTERLOAD", "Previous character file deleted.");
+                } else {
+                    Log.e("CHARACTERLOAD", "Failed to delete previous character file.");
+                    return; // Exit the method as we couldn't delete the old file
+                }
+            }
+
+            // Write the new JSON string to the file
             try (FileOutputStream fos = new FileOutputStream(file)) {
                 fos.write(characterString.getBytes());
                 System.out.println("Character saved to " + file.getAbsolutePath());
+                Log.d("CHARACTERLOAD", "CHARACTER SAVED WITH SUCCESS");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -321,15 +347,33 @@ public class Character {
     }
 
 
-    private static void printCharacterInfo(Character character) {
-        // Display basic character info, points, and health
-        System.out.println("Character Information:");
-        System.out.println("Name: " + character.name + ", Age: " + character.age);
-        System.out.println("Base Values - Physical: " + character.baseValuePhys + ", Dexterity: " + character.baseValueDex +
-                ", Mental: " + character.baseValueMent + ", Social: " + character.baseValueSoc);
-        System.out.println("Points - Physical Points: " + character.pp + ", Dexterity Points: " + character.dp +
-                ", Mental Points: " + character.mp + ", Social Points: " + character.sp);
-        System.out.println("Health Points - Head: " + character.head + ", Left Arm: " + character.lArm + ", Right Arm: " + character.rArm +
-                ", Torso: " + character.torso + ", Left Leg: " + character.lLeg + ", Right Leg: " + character.rLeg);
+    public void deleteCharacterJson(Context context, String characterName) {
+        try {
+            // Define the folder name where characters are saved
+            String folderName = "savedcharacter"; // Folder name where character files are saved
+
+            // Sanitize the characterName to be used as the filename
+            String sanitizedFilename = characterName.replaceAll("[^a-zA-Z0-9\\._]+", "_") + ".json";
+
+            // Create a file object for the character data
+            File internalDir = new File(context.getFilesDir(), folderName);
+            File file = new File(internalDir, sanitizedFilename);
+
+            // Check if the character file exists
+            if (!file.exists()) {
+                Log.d("DELETECHARACTER", "Character file does not exist.");
+            }
+
+            // Attempt to delete the file
+            boolean deleted = file.delete();
+            if (deleted) {
+                Log.d("DELETECHARACTER", "Character deleted successfully.");
+            } else {
+                Log.d("DELETECHARACTER", "Failed to delete character.");
+            }
+
+        } catch (Exception e) {
+            Log.e("DELETECHARACTER", "Error deleting character.", e);
+        }
     }
 }

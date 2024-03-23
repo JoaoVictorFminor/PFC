@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set click listeners for each button
 
-        Character character = printCharacterInfo();
+        loadCharacterInfo();
 
         buttonD4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -331,7 +331,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private Character printCharacterInfo() {
+    private Character testCharacter(){
+
+        Character character = new Character();
+        character.readCharacterFromJson(this,"Raoul Maskelyne");
+/*
         //Character placeholder
         Character character = new Character();
         Character.name = "Raoul Maskelyne";
@@ -432,9 +436,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d("CharacterSkills", "Deception: " + character.deception + ", Modifier: " + (character.deception + character.modSoc));
         Log.d("CharacterSkills", "Action: " + character.action + ", Modifier: " + (character.action + character.modSoc));
         Log.d("CharacterSkills", "Flirt: " + character.flirt + ", Modifier: " + (character.flirt + character.modSoc));
+*/
+
+        return character;
 
 
+    }
 
+
+    private void loadCharacterInfo() {
+
+        Character character = testCharacter();
 
         characterNameTextView.setText(character.name);
         characterAgeTextView.setText("Age: " + String.valueOf(character.age));
@@ -509,7 +521,6 @@ public class MainActivity extends AppCompatActivity {
         setSkillValueAndModifier(valAction, modAction, Character.action, Character.modSoc);
         setSkillValueAndModifier(valFlirt, modFlirt, Character.flirt, Character.modSoc);
 
-        return character;
     }
 
     private void initSpinners() {
