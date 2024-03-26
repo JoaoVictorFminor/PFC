@@ -1,4 +1,5 @@
 package com.example.tabletoptools;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonD12;
     private Button buttonD20;
     private Button buttonD100;
+
+    private Character character;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,6 +258,14 @@ public class MainActivity extends AppCompatActivity {
         // Set click listeners for each button
 
         loadCharacterInfo();
+
+        characterImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateCharacterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonD4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -446,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadCharacterInfo() {
 
-        Character character = testCharacter();
+        character = testCharacter();
 
         characterNameTextView.setText(character.name);
         characterAgeTextView.setText("Age: " + String.valueOf(character.age));
@@ -467,71 +478,103 @@ public class MainActivity extends AppCompatActivity {
         gridSocBaseValue.setText(String.valueOf(character.baseValueSoc));
         gridSocMod.setText(String.valueOf(character.modSoc));
 
-        healthHead.setText(String.valueOf(Character.head));
-        healthTorso.setText(String.valueOf(Character.torso));
-        healthLeftArm.setText(String.valueOf(Character.lArm));
-        healthLeftLeg.setText(String.valueOf(Character.lLeg));
-        healthRightArm.setText(String.valueOf(Character.rArm));
-        healthRightLeg.setText(String.valueOf(Character.rLeg));
+        healthHead.setText(String.valueOf(character.getHead()));
+        healthTorso.setText(String.valueOf(character.getTorso()));
+        healthLeftArm.setText(String.valueOf(character.getlArm()));
+        healthLeftLeg.setText(String.valueOf(character.getlLeg()));
+        healthRightArm.setText(String.valueOf(character.getrArm()));
+        healthRightLeg.setText(String.valueOf(character.getrLeg()));
 
         initSpinners();
 
 
+// Setting the character's basic info
+        characterNameTextView.setText(character.getName());
+        characterAgeTextView.setText("Age: " + character.getAge());
+
+        // Setting the base, total values, and modifiers for attributes
+        gridPhysTotalValue.setText(String.valueOf(character.getTotalValuePhys()));
+        gridPhysBaseValue.setText(String.valueOf(character.getBaseValuePhys()));
+        gridPhysMod.setText(String.valueOf(character.getModPhys()));
+
+        gridDexTotalValue.setText(String.valueOf(character.getTotalValueDex()));
+        gridDexBaseValue.setText(String.valueOf(character.getBaseValueDex()));
+        gridDexMod.setText(String.valueOf(character.getModDex()));
+
+        gridMentTotalValue.setText(String.valueOf(character.getTotalValueMent()));
+        gridMentBaseValue.setText(String.valueOf(character.getBaseValueMent()));
+        gridMentMod.setText(String.valueOf(character.getModMent()));
+
+        gridSocTotalValue.setText(String.valueOf(character.getTotalValueSoc()));
+        gridSocBaseValue.setText(String.valueOf(character.getBaseValueSoc()));
+        gridSocMod.setText(String.valueOf(character.getModSoc()));
+
+        // Setting health points for each body part
+        healthHead.setText(String.valueOf(character.getHead()));
+        healthTorso.setText(String.valueOf(character.getTorso()));
+        healthLeftArm.setText(String.valueOf(character.getlArm()));
+        healthLeftLeg.setText(String.valueOf(character.getlLeg()));
+        healthRightArm.setText(String.valueOf(character.getrArm()));
+        healthRightLeg.setText(String.valueOf(character.getrLeg()));
+
         // Setting Physical Skills Values and Modifiers
-        setSkillValueAndModifier(valMeleeWeapons, modMeleeWeapons, Character.melleWeapons, Character.modPhys);
-        setSkillValueAndModifier(valBrawl, modBrawl, Character.brawl, Character.modPhys);
-        setSkillValueAndModifier(valImposition, modImposition, Character.imposition, Character.modPhys);
-        setSkillValueAndModifier(valAthletics, modAthletics, Character.Athletics, Character.modPhys);
-        setSkillValueAndModifier(valRange, modRange, Character.range, Character.modPhys);
+        setSkillValueAndModifier(valMeleeWeapons, modMeleeWeapons, character.getMelleWeapons(), character.getModPhys());
+        setSkillValueAndModifier(valBrawl, modBrawl, character.getBrawl(), character.getModPhys());
+        setSkillValueAndModifier(valImposition, modImposition, character.getImposition(), character.getModPhys());
+        setSkillValueAndModifier(valAthletics, modAthletics, character.getAthletics(), character.getModPhys());
+        setSkillValueAndModifier(valRange, modRange, character.getRange(), character.getModPhys());
 
         // Setting Mental Skills Values and Modifiers
-        setSkillValueAndModifier(valMath, modMath, Character.math, Character.modMent);
-        setSkillValueAndModifier(valForgery, modForgery, Character.forgery, Character.modMent);
-        setSkillValueAndModifier(valAlchemy, modAlchemy, Character.alchemy, Character.modMent);
-        setSkillValueAndModifier(valNaturalSciences, modNaturalSciences, Character.naturalSciences, Character.modMent);
-        setSkillValueAndModifier(valPhiliology, modPhiliology, Character.philiology, Character.modMent);
-        setSkillValueAndModifier(valStrategy, modStrategy, Character.strategy, Character.modMent);
-        setSkillValueAndModifier(valEngineering, modEngineering, Character.engineering, Character.modMent);
-        setSkillValueAndModifier(valLaw, modLaw, Character.law, Character.modMent);
-        setSkillValueAndModifier(valAppraise, modAppraise, Character.appraise, Character.modMent);
-        setSkillValueAndModifier(valInvestigate, modInvestigate, Character.investigate, Character.modMent);
-        setSkillValueAndModifier(valMedicine, modMedicine, Character.medicine, Character.modMent);
-        setSkillValueAndModifier(valOccult, modOccult, Character.occult, Character.modMent);
-        setSkillValueAndModifier(valPsychology, modPsychology, Character.psychology, Character.modMent);
-        setSkillValueAndModifier(valFirstAid, modFirstAid, Character.firstAid, Character.modMent);
-        setSkillValueAndModifier(valSurvival, modSurvival, Character.survival, Character.modMent);
+        setSkillValueAndModifier(valMath, modMath, character.getMath(), character.getModMent());
+        setSkillValueAndModifier(valForgery, modForgery, character.getForgery(), character.getModMent());
+        setSkillValueAndModifier(valAlchemy, modAlchemy, character.getAlchemy(), character.getModMent());
+        setSkillValueAndModifier(valNaturalSciences, modNaturalSciences, character.getNaturalSciences(), character.getModMent());
+        setSkillValueAndModifier(valPhiliology, modPhiliology, character.getPhiliology(), character.getModMent());
+        setSkillValueAndModifier(valStrategy, modStrategy, character.getStrategy(), character.getModMent());
+        setSkillValueAndModifier(valEngineering, modEngineering, character.getEngineering(), character.getModMent());
+        setSkillValueAndModifier(valLaw, modLaw, character.getLaw(), character.getModMent());
+        setSkillValueAndModifier(valAppraise, modAppraise, character.getAppraise(), character.getModMent());
+        setSkillValueAndModifier(valInvestigate, modInvestigate, character.getInvestigate(), character.getModMent());
+        setSkillValueAndModifier(valMedicine, modMedicine, character.getMedicine(), character.getModMent());
+        setSkillValueAndModifier(valOccult, modOccult, character.getOccult(), character.getModMent());
+        setSkillValueAndModifier(valPsychology, modPsychology, character.getPsychology(), character.getModMent());
+        setSkillValueAndModifier(valFirstAid, modFirstAid, character.getFirstAid(), character.getModMent());
+        setSkillValueAndModifier(valSurvival, modSurvival, character.getSurvival(), character.getModMent());
 
         // Setting Dexterity Skills Values and Modifiers
-        setSkillValueAndModifier(valLockPicking, modLockPicking, Character.lockPicking, Character.modDex);
-        setSkillValueAndModifier(valSleightOfHand, modSleightOfHand, Character.sleightOfHand, Character.modDex);
-        setSkillValueAndModifier(valHorseRiding, modHorseRiding, Character.horseRiding, Character.modDex);
-        setSkillValueAndModifier(valLocksmith, modLocksmith, Character.locksmith, Character.modDex);
-        setSkillValueAndModifier(valFirearms, modFirearms, Character.firearms, Character.modDex);
-        setSkillValueAndModifier(valStealth, modStealth, Character.stealth, Character.modDex);
-        setSkillValueAndModifier(valThrowable, modThrowable, Character.throwable, Character.modDex);
-        setSkillValueAndModifier(valPerception, modPerception, Character.perception, Character.modDex);
-        setSkillValueAndModifier(valCraft, modCraft, Character.craft, Character.modDex);
+        setSkillValueAndModifier(valLockPicking, modLockPicking, character.getLockPicking(), character.getModDex());
+        setSkillValueAndModifier(valSleightOfHand, modSleightOfHand, character.getSleightOfHand(), character.getModDex());
+        setSkillValueAndModifier(valHorseRiding, modHorseRiding, character.getHorseRiding(), character.getModDex());
+        setSkillValueAndModifier(valLocksmith, modLocksmith, character.getLocksmith(), character.getModDex());
+        setSkillValueAndModifier(valFirearms, modFirearms, character.getFirearms(), character.getModDex());
+        setSkillValueAndModifier(valStealth, modStealth, character.getStealth(), character.getModDex());
+        setSkillValueAndModifier(valThrowable, modThrowable, character.getThrowable(), character.getModDex());
+        setSkillValueAndModifier(valPerception, modPerception, character.getPerception(), character.getModDex());
+        setSkillValueAndModifier(valCraft, modCraft, character.getCraft(), character.getModDex());
 
         // Setting Social Skills Values and Modifiers
-        setSkillValueAndModifier(valDiplomacy, modDiplomacy, Character.diplomacy, Character.modSoc);
-        setSkillValueAndModifier(valIntimidation, modIntimidation, Character.intimidation, Character.modSoc);
-        setSkillValueAndModifier(valStreetWise, modStreetWise, Character.streetWise, Character.modSoc);
-        setSkillValueAndModifier(valNegotiation, modNegotiation, Character.negotiation, Character.modSoc);
-        setSkillValueAndModifier(valDeception, modDeception, Character.deception, Character.modSoc);
-        setSkillValueAndModifier(valAction, modAction, Character.action, Character.modSoc);
-        setSkillValueAndModifier(valFlirt, modFlirt, Character.flirt, Character.modSoc);
-
+        setSkillValueAndModifier(valDiplomacy, modDiplomacy, character.getDiplomacy(), character.getModSoc());
+        setSkillValueAndModifier(valIntimidation, modIntimidation, character.getIntimidation(), character.getModSoc());
+        setSkillValueAndModifier(valStreetWise, modStreetWise, character.getStreetWise(), character.getModSoc());
+        setSkillValueAndModifier(valNegotiation, modNegotiation, character.getNegotiation(), character.getModSoc());
+        setSkillValueAndModifier(valDeception, modDeception, character.getDeception(), character.getModSoc());
+        setSkillValueAndModifier(valAction, modAction, character.getAction(), character.getModSoc());
+        setSkillValueAndModifier(valFlirt, modFlirt, character.getFlirt(), character.getModSoc());
     }
 
+
+
+    // Assuming 'character' is your Character instance available in this context
     private void initSpinners() {
         // Initialize each spinner with numbers based on the character's health points for each body part
-        initSpinnerWithRange(findViewById(R.id.damageHead), Character.head);
-        initSpinnerWithRange(findViewById(R.id.damageTorso), Character.torso);
-        initSpinnerWithRange(findViewById(R.id.damagelArm), Character.lArm);
-        initSpinnerWithRange(findViewById(R.id.damageLleg), Character.lLeg);
-        initSpinnerWithRange(findViewById(R.id.damagerArm), Character.rArm);
-        initSpinnerWithRange(findViewById(R.id.damagerLeg), Character.rLeg);
+        initSpinnerWithRange(findViewById(R.id.damageHead), character.getHead());
+        initSpinnerWithRange(findViewById(R.id.damageTorso), character.getTorso());
+        initSpinnerWithRange(findViewById(R.id.damagelArm), character.getlArm());
+        initSpinnerWithRange(findViewById(R.id.damageLleg), character.getlLeg());
+        initSpinnerWithRange(findViewById(R.id.damagerArm), character.getrArm());
+        initSpinnerWithRange(findViewById(R.id.damagerLeg), character.getrLeg());
     }
+
 
     private void initSpinnerWithRange(Spinner spinner, int maxHealth) {
         List<String> numbers = new ArrayList<>();

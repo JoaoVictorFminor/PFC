@@ -12,92 +12,86 @@ import java.io.IOException;
 
 public class Character {
 
-    public static int age;
-    public static String name;
+    // Initial values set to 0 for integers and "" for String
+    public int age = 0;
+    public String name = "";
 
-    public static int pp;
-    public static int dp;
-    public static int mp;
-    public static int sp;
+    // Points initialized to 0
+    public int pp = 0;
+    public int dp = 0;
+    public int mp = 0;
+    public int sp = 0;
 
-    //Base Value
+    // Base Values initialized to 0
+    public int baseValuePhys = 0;
+    public int baseValueDex = 0;
+    public int baseValueMent = 0;
+    public int baseValueSoc = 0;
 
-    public static int baseValuePhys;
-    public static int baseValueDex;
-    public static int baseValueMent;
-    public static int baseValueSoc;
+    // Total Values initialized to 0
+    public int totalValuePhys = 0;
+    public int totalValueDex = 0;
+    public int totalValueMent = 0;
+    public int totalValueSoc = 0;
 
-    //Total Value
+    // Attribute Modifiers initialized to 0
+    public int modPhys = 0;
+    public int modDex = 0;
+    public int modMent = 0;
+    public int modSoc = 0;
 
-    public static int totalValuePhys;
-    public static int totalValueDex;
-    public static int totalValueMent;
-    public static int totalValueSoc;
+    // Health Points initialized to 0
+    public int head = 0;
+    public int lArm = 0;
+    public int rArm = 0;
+    public int torso = 0;
+    public int lLeg = 0;
+    public int rLeg = 0;
 
+    // Physical Skills Values initialized to 0
+    public int melleWeapons = 0;
+    public int brawl = 0;
+    public int imposition = 0;
+    public int Athletics = 0;
+    public int range = 0;
 
-    //Attribute Modifier
-    public static int modPhys;
-    public static int modDex;
-    public static int modMent;
-    public static int modSoc;
+    // Mental Skills Values initialized to 0
+    public int math = 0;
+    public int forgery = 0;
+    public int alchemy = 0;
+    public int naturalSciences = 0;
+    public int philiology = 0;
+    public int strategy = 0;
+    public int engineering = 0;
+    public int law = 0;
+    public int appraise = 0;
+    public int investigate = 0;
+    public int medicine = 0;
+    public int occult = 0;
+    public int psychology = 0;
+    public int firstAid = 0;
+    public int survival = 0;
 
+    // Dexterity Skills Value initialized to 0
+    public int lockPicking = 0;
+    public int sleightOfHand = 0;
+    public int horseRiding = 0;
+    public int locksmith = 0;
+    public int firearms = 0;
+    public int stealth = 0;
+    public int throwable = 0;
+    public int perception = 0;
+    public int craft = 0;
 
-    //HealthPoints
+    // Social Skills Value initialized to 0
+    public int diplomacy = 0;
+    public int intimidation = 0;
+    public int streetWise = 0;
+    public int negotiation = 0;
+    public int deception = 0;
+    public int action = 0;
+    public int flirt = 0;
 
-    public static int head;
-    public static int lArm;
-    public static int rArm;
-    public static int torso;
-    public static int lLeg;
-    public static int rLeg;
-
-
-    //PhysSkillsValues
-    public static int melleWeapons;
-    public static int brawl;
-    public static int imposition;
-    public static int Athletics;
-    public static int range;
-
-    //MentalSkillsValues
-
-    public static int math;
-    public static int forgery;
-    public static int alchemy;
-    public static int naturalSciences;
-    public static int philiology;
-    public static int strategy;
-    public static int engineering;
-    public static int law;
-    public static int appraise;
-    public static int investigate;
-    public static int medicine;
-    public static int occult;
-    public static int psychology;
-    public static int firstAid;
-    public static int survival;
-
-    //DexteritySkillsValue
-
-    public static int lockPicking;
-    public static int sleightOfHand;
-    public static int horseRiding;
-    public static int locksmith;
-    public static int firearms;
-    public static int stealth;
-    public static int throwable;
-    public static int perception;
-    public static int craft;
-
-    //SocialSkillsValue;
-
-    public static int diplomacy;
-    public static int intimidation;
-    public static int streetWise;
-    public static int negotiation;
-    public static int deception;
-    public static int action;
-    public static int flirt;
 
 
     public void readCharacterFromJson(Context context, String characterName) {
@@ -191,69 +185,56 @@ public class Character {
             System.err.println("ERROR READING CHARACTER FROM JSON " + e);
         }
     }
-    static void calculateAttributeMod() {
-        modPhys = (int) Math.round((Character.calculateTotalValue(1) - 10) / 2.0);
-        modDex = (int) Math.round((Character.calculateTotalValue(2) - 10) / 2.0);
-        modMent = (int) Math.round((Character.calculateTotalValue(3) - 10) / 2.0);
-        modSoc = (int) Math.round((Character.calculateTotalValue(4)- 10) / 2.0);
-
+    public void calculateAttributeMod() {
+        this.setModPhys((int) Math.round((this.calculateTotalValue(1) - 10) / 2.0));
+        this.setModDex((int) Math.round((this.calculateTotalValue(2) - 10) / 2.0));
+        this.setModMent((int) Math.round((this.calculateTotalValue(3) - 10) / 2.0));
+        this.setModSoc((int) Math.round((this.calculateTotalValue(4) - 10) / 2.0));
     }
 
-    public static int calculateTotalValue(int type) {
+    public int calculateTotalValue(int type) {
         int totalvalue;
-        if (type == 1) {
-            int result;
-            if (age < 35) {
-                result = 0;
-            } else {
-                result = (int) (Math.floor(age * 0.2) - 3);
-            }
-            totalvalue = baseValuePhys - result;
-        } else if (type == 2) {
-            int result;
-            if (age < 35) {
-                result = 0;
-            } else {
-                result = (int) (Math.floor(age * 0.2) - 1);
-            }
-            totalvalue = baseValueDex - result;
-        } else if (type == 3) {
-            totalvalue = baseValueMent;
-        } else if (type == 4) {
-            totalvalue = baseValueSoc;
-        } else {
-            totalvalue = 0;
+        int result;
+        switch (type) {
+            case 1: // Phys
+                result = this.getAge() < 35 ? 0 : (int) (Math.floor(this.getAge() * 0.2) - 3);
+                totalvalue = this.getBaseValuePhys() - result;
+                break;
+            case 2: // Dex
+                result = this.getAge() < 35 ? 0 : (int) (Math.floor(this.getAge() * 0.2) - 1);
+                totalvalue = this.getBaseValueDex() - result;
+                break;
+            case 3: // Ment
+                totalvalue = this.getBaseValueMent();
+                break;
+            case 4: // Soc
+                totalvalue = this.getBaseValueSoc();
+                break;
+            default:
+                totalvalue = 0;
+                break;
         }
-
         return totalvalue;
-
     }
 
-    public static void calculatePoints() {
-        // Calculate the common part of the formula
-        int ageRelatedValue = (int) Math.round(age * 0.05);
-
-        // Calculate each point based on the base value and the age-related value
-        pp = 2 + baseValuePhys + ageRelatedValue;
-        dp = 2 + baseValueDex + ageRelatedValue;
-        mp = 2 + baseValueMent + ageRelatedValue;
-        sp = 2 + baseValueSoc + ageRelatedValue;
+    public void calculatePoints() {
+        int ageRelatedValue = (int) Math.round(this.getAge() * 0.05);
+        this.setPp(2 + this.getBaseValuePhys() + ageRelatedValue);
+        this.setDp(2 + this.getBaseValueDex() + ageRelatedValue);
+        this.setMp(2 + this.getBaseValueMent() + ageRelatedValue);
+        this.setSp(2 + this.getBaseValueSoc() + ageRelatedValue);
     }
 
-
-
-
-    public static void calculateHp() {
-        double calculationPart = (age - 10) / 3.0;
-        int rounded = (int) Math.round(calculationPart); // Round to nearest integer
-        head = 15 - rounded + baseValuePhys;
-        lArm = 30 - rounded + baseValuePhys;
-        rArm = 30 - rounded + baseValuePhys;
-        lLeg = 30 - rounded + baseValuePhys;
-        rLeg = 30 - rounded + baseValuePhys;
-        torso = 50 - rounded + baseValuePhys;
+    public void calculateHp() {
+        double calculationPart = (this.getAge() - 10) / 3.0;
+        int rounded = (int) Math.round(calculationPart);
+        this.setHead(15 - rounded + this.getBaseValuePhys());
+        this.setlArm(30 - rounded + this.getBaseValuePhys());
+        this.setrArm(30 - rounded + this.getBaseValuePhys());
+        this.setlLeg(30 - rounded + this.getBaseValuePhys());
+        this.setrLeg(30 - rounded + this.getBaseValuePhys());
+        this.setTorso(50 - rounded + this.getBaseValuePhys());
     }
-
     public void saveCharacterToJson(Context context) {
         try {
             // Creating a JSONObject to store character data
@@ -375,5 +356,485 @@ public class Character {
         } catch (Exception e) {
             Log.e("DELETECHARACTER", "Error deleting character.", e);
         }
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPp() {
+        return pp;
+    }
+
+    public void setPp(int pp) {
+        this.pp = pp;
+    }
+
+    public int getDp() {
+        return dp;
+    }
+
+    public void setDp(int dp) {
+        this.dp = dp;
+    }
+
+    public int getMp() {
+        return mp;
+    }
+
+    public void setMp(int mp) {
+        this.mp = mp;
+    }
+
+    public int getSp() {
+        return sp;
+    }
+
+    public void setSp(int sp) {
+        this.sp = sp;
+    }
+
+    public int getBaseValuePhys() {
+        return baseValuePhys;
+    }
+
+    public void setBaseValuePhys(int baseValuePhys) {
+        this.baseValuePhys = baseValuePhys;
+    }
+
+    public int getBaseValueDex() {
+        return baseValueDex;
+    }
+
+    public void setBaseValueDex(int baseValueDex) {
+        this.baseValueDex = baseValueDex;
+    }
+
+    public int getBaseValueMent() {
+        return baseValueMent;
+    }
+
+    public void setBaseValueMent(int baseValueMent) {
+        this.baseValueMent = baseValueMent;
+    }
+
+    public int getBaseValueSoc() {
+        return baseValueSoc;
+    }
+
+    public void setBaseValueSoc(int baseValueSoc) {
+        this.baseValueSoc = baseValueSoc;
+    }
+
+    public int getTotalValuePhys() {
+        return totalValuePhys;
+    }
+
+    public void setTotalValuePhys(int totalValuePhys) {
+        this.totalValuePhys = totalValuePhys;
+    }
+
+    public int getTotalValueDex() {
+        return totalValueDex;
+    }
+
+    public void setTotalValueDex(int totalValueDex) {
+        this.totalValueDex = totalValueDex;
+    }
+
+    public int getTotalValueMent() {
+        return totalValueMent;
+    }
+
+    public void setTotalValueMent(int totalValueMent) {
+        this.totalValueMent = totalValueMent;
+    }
+
+    public int getTotalValueSoc() {
+        return totalValueSoc;
+    }
+
+    public void setTotalValueSoc(int totalValueSoc) {
+        this.totalValueSoc = totalValueSoc;
+    }
+
+    public int getModPhys() {
+        return modPhys;
+    }
+
+    public void setModPhys(int modPhys) {
+        this.modPhys = modPhys;
+    }
+
+    public int getModDex() {
+        return modDex;
+    }
+
+    public void setModDex(int modDex) {
+        this.modDex = modDex;
+    }
+
+    public int getModMent() {
+        return modMent;
+    }
+
+    public void setModMent(int modMent) {
+        this.modMent = modMent;
+    }
+
+    public int getModSoc() {
+        return modSoc;
+    }
+
+    public void setModSoc(int modSoc) {
+        this.modSoc = modSoc;
+    }
+
+    public int getHead() {
+        return head;
+    }
+
+    public void setHead(int head) {
+        this.head = head;
+    }
+
+    public int getlArm() {
+        return lArm;
+    }
+
+    public void setlArm(int lArm) {
+        this.lArm = lArm;
+    }
+
+    public int getrArm() {
+        return rArm;
+    }
+
+    public void setrArm(int rArm) {
+        this.rArm = rArm;
+    }
+
+    public int getTorso() {
+        return torso;
+    }
+
+    public void setTorso(int torso) {
+        this.torso = torso;
+    }
+
+    public int getlLeg() {
+        return lLeg;
+    }
+
+    public void setlLeg(int lLeg) {
+        this.lLeg = lLeg;
+    }
+
+    public int getrLeg() {
+        return rLeg;
+    }
+
+    public void setrLeg(int rLeg) {
+        this.rLeg = rLeg;
+    }
+
+    public int getMelleWeapons() {
+        return melleWeapons;
+    }
+
+    public void setMelleWeapons(int melleWeapons) {
+        this.melleWeapons = melleWeapons;
+    }
+
+    public int getBrawl() {
+        return brawl;
+    }
+
+    public void setBrawl(int brawl) {
+        this.brawl = brawl;
+    }
+
+    public int getImposition() {
+        return imposition;
+    }
+
+    public void setImposition(int imposition) {
+        this.imposition = imposition;
+    }
+
+    public int getAthletics() {
+        return Athletics;
+    }
+
+    public void setAthletics(int athletics) {
+        Athletics = athletics;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public int getMath() {
+        return math;
+    }
+
+    public void setMath(int math) {
+        this.math = math;
+    }
+
+    public int getForgery() {
+        return forgery;
+    }
+
+    public void setForgery(int forgery) {
+        this.forgery = forgery;
+    }
+
+    public int getAlchemy() {
+        return alchemy;
+    }
+
+    public void setAlchemy(int alchemy) {
+        this.alchemy = alchemy;
+    }
+
+    public int getNaturalSciences() {
+        return naturalSciences;
+    }
+
+    public void setNaturalSciences(int naturalSciences) {
+        this.naturalSciences = naturalSciences;
+    }
+
+    public int getPhiliology() {
+        return philiology;
+    }
+
+    public void setPhiliology(int philiology) {
+        this.philiology = philiology;
+    }
+
+    public int getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(int strategy) {
+        this.strategy = strategy;
+    }
+
+    public int getEngineering() {
+        return engineering;
+    }
+
+    public void setEngineering(int engineering) {
+        this.engineering = engineering;
+    }
+
+    public int getLaw() {
+        return law;
+    }
+
+    public void setLaw(int law) {
+        this.law = law;
+    }
+
+    public int getAppraise() {
+        return appraise;
+    }
+
+    public void setAppraise(int appraise) {
+        this.appraise = appraise;
+    }
+
+    public int getInvestigate() {
+        return investigate;
+    }
+
+    public void setInvestigate(int investigate) {
+        this.investigate = investigate;
+    }
+
+    public int getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(int medicine) {
+        this.medicine = medicine;
+    }
+
+    public int getOccult() {
+        return occult;
+    }
+
+    public void setOccult(int occult) {
+        this.occult = occult;
+    }
+
+    public int getPsychology() {
+        return psychology;
+    }
+
+    public void setPsychology(int psychology) {
+        this.psychology = psychology;
+    }
+
+    public int getFirstAid() {
+        return firstAid;
+    }
+
+    public void setFirstAid(int firstAid) {
+        this.firstAid = firstAid;
+    }
+
+    public int getSurvival() {
+        return survival;
+    }
+
+    public void setSurvival(int survival) {
+        this.survival = survival;
+    }
+
+    public int getLockPicking() {
+        return lockPicking;
+    }
+
+    public void setLockPicking(int lockPicking) {
+        this.lockPicking = lockPicking;
+    }
+
+    public int getSleightOfHand() {
+        return sleightOfHand;
+    }
+
+    public void setSleightOfHand(int sleightOfHand) {
+        this.sleightOfHand = sleightOfHand;
+    }
+
+    public int getHorseRiding() {
+        return horseRiding;
+    }
+
+    public void setHorseRiding(int horseRiding) {
+        this.horseRiding = horseRiding;
+    }
+
+    public int getLocksmith() {
+        return locksmith;
+    }
+
+    public void setLocksmith(int locksmith) {
+        this.locksmith = locksmith;
+    }
+
+    public int getFirearms() {
+        return firearms;
+    }
+
+    public void setFirearms(int firearms) {
+        this.firearms = firearms;
+    }
+
+    public int getStealth() {
+        return stealth;
+    }
+
+    public void setStealth(int stealth) {
+        this.stealth = stealth;
+    }
+
+    public int getThrowable() {
+        return throwable;
+    }
+
+    public void setThrowable(int throwable) {
+        this.throwable = throwable;
+    }
+
+    public int getPerception() {
+        return perception;
+    }
+
+    public void setPerception(int perception) {
+        this.perception = perception;
+    }
+
+    public int getCraft() {
+        return craft;
+    }
+
+    public void setCraft(int craft) {
+        this.craft = craft;
+    }
+
+    public int getDiplomacy() {
+        return diplomacy;
+    }
+
+    public void setDiplomacy(int diplomacy) {
+        this.diplomacy = diplomacy;
+    }
+
+    public int getIntimidation() {
+        return intimidation;
+    }
+
+    public void setIntimidation(int intimidation) {
+        this.intimidation = intimidation;
+    }
+
+    public int getStreetWise() {
+        return streetWise;
+    }
+
+    public void setStreetWise(int streetWise) {
+        this.streetWise = streetWise;
+    }
+
+    public int getNegotiation() {
+        return negotiation;
+    }
+
+    public void setNegotiation(int negotiation) {
+        this.negotiation = negotiation;
+    }
+
+    public int getDeception() {
+        return deception;
+    }
+
+    public void setDeception(int deception) {
+        this.deception = deception;
+    }
+
+    public int getAction() {
+        return action;
+    }
+
+    public void setAction(int action) {
+        this.action = action;
+    }
+
+    public int getFlirt() {
+        return flirt;
+    }
+
+    public void setFlirt(int flirt) {
+        this.flirt = flirt;
     }
 }
