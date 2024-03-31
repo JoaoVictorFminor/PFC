@@ -192,6 +192,19 @@ public class Character {
         this.setModSoc((int) Math.round((this.calculateTotalValue(4) - 10) / 2.0));
     }
 
+    public void setTotalValues() {
+        // Calculate Physical Total Value
+        int physResult = age < 35 ? 0 : (int) (Math.floor(age * 0.2) - 3);
+        setTotalValuePhys(baseValuePhys - physResult);
+
+        // Calculate Dexterity Total Value
+        int dexResult = age < 35 ? 0 : (int) (Math.floor(age * 0.2) - 1);
+        setTotalValueDex(baseValueDex - dexResult);
+
+        // Set Mental and Social total values directly as they do not change with age in this model
+        setTotalValueMent(baseValueMent);
+        setTotalValueSoc(baseValueSoc);
+    }
     public int calculateTotalValue(int type) {
         int totalvalue;
         int result;
@@ -325,6 +338,22 @@ public class Character {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        // Use Log.d for debug logging. The first parameter is a tag and the second is the message.
+        Log.d("CharacterInfo", "____________________________________________________________________________________________");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "Character Information saved:");
+        Log.d("CharacterInfo", "Name: " + getName() + ", Age: " + getAge());
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "");
+        Log.d("CharacterInfo", "____________________________________________________________________________________________");
+
     }
 
 

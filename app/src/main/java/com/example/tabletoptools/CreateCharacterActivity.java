@@ -1,5 +1,6 @@
 package com.example.tabletoptools;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
 
     private TextView instructionTextView;
     private Character character;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +133,14 @@ public class CreateCharacterActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                Log.d("CharacterInfo", "SAVE BUTTON CLICKED");
+                character.saveCharacterToJson(CreateCharacterActivity.this);
             }
         });
+
+
 
     }
 
@@ -212,12 +220,10 @@ public class CreateCharacterActivity extends AppCompatActivity {
 
         int totalPhysicalSkillsPointsUsed = character.getMelleWeapons() + character.getBrawl() + character.getImposition() + character.getAthletics() + character.getRange();
         int totalDexteritySkillsPointsUsed = character.getLockPicking() + character.getSleightOfHand() + character.getHorseRiding() + character.getLocksmith() + character.getFirearms() + character.getStealth() + character.getThrowable() + character.getPerception() + character.getCraft();
-
-
-
-
+        int totalMentalSkillsPointsUsed = character.getMath() + character.getForgery() + character.getAlchemy() + character.getNaturalSciences() + character.getPhiliology() + character.getStrategy() + character.getEngineering() + character.getLaw() + character.getAppraise() + character.getInvestigate() + character.getMedicine() + character.getOccult() + character.getPsychology() + character.getFirstAid() + character.getSurvival();
 
         String instruction = "Next step: ";
+
         // Check if name is entered
         if (character.getName() == null || character.getName().isEmpty()) {
             instruction += "Enter Name.";
@@ -234,47 +240,38 @@ public class CreateCharacterActivity extends AppCompatActivity {
             } else {
                 instruction += "Remove " + (totalAttributes - 45) + " points from attributes.";
             }
-        }
-        // Guide for distributing skill points based on pp, dp, mp, sp dynamically calculated
-        else {
+        } else {
             // Assuming calculatePoints() method updates pp, dp, mp, sp based on age and base attributes
             character.calculatePoints();
-// Assuming you've already calculated total points used in each category as shown above
 
             instruction = "Next step: ";
 
-// Physical Points Distribution
+            // Physical Points Distribution
             if (totalPhysicalSkillsPointsUsed > character.getPp()) {
                 instruction += "Remove " + (totalPhysicalSkillsPointsUsed - character.getPp()) + " Physical Points from physical skills.";
             } else if (totalPhysicalSkillsPointsUsed < character.getPp()) {
                 instruction += "Distribute " + (character.getPp() - totalPhysicalSkillsPointsUsed) + " more Physical Points in physical skills.";
-            }
-// If physical skills are correctly distributed, move to Dexterity
-            else {
-                // Dexterity Points Distribution
-                if (totalDexteritySkillsPointsUsed > character.getDp()) {
-                    instruction += "Remove " + (totalDexteritySkillsPointsUsed - character.getDp()) + " Dexterity Points from dexterity skills.";
-                } else if (totalDexteritySkillsPointsUsed < character.getDp()) {
-                    instruction += "Distribute " + (character.getDp() - totalDexteritySkillsPointsUsed) + " more Dexterity Points in dexterity skills.";
-                }
-                // If dexterity skills are correctly distributed, move to Mental
-                else {
-                    int totalMentalSkillsPointsUsed = character.getMath() + character.getForgery() + character.getAlchemy() + character.getNaturalSciences() + character.getPhiliology() + character.getStrategy() + character.getEngineering() + character.getLaw() + character.getAppraise() + character.getInvestigate() + character.getMedicine() + character.getOccult() + character.getPsychology() + character.getFirstAid() + character.getSurvival();
-                    if (totalMentalSkillsPointsUsed > character.getMp()) {
-                        instruction += "Remove " + (totalMentalSkillsPointsUsed - character.getMp()) + " Mental Points from mental skills.";
-                    } else if (totalMentalSkillsPointsUsed < character.getMp()) {
-                        instruction += "Distribute " + (character.getMp() - totalMentalSkillsPointsUsed) + " more Mental Points in mental skills.";
-                    }
-                    // If mental skills are correctly distributed, move to Social
-                    else {
+            } else {
+                // Mental Points Distribution
+                if (totalMentalSkillsPointsUsed > character.getMp()) {
+                    instruction += "Remove " + (totalMentalSkillsPointsUsed - character.getMp()) + " Mental Points from mental skills.";
+                } else if (totalMentalSkillsPointsUsed < character.getMp()) {
+                    instruction += "Distribute " + (character.getMp() - totalMentalSkillsPointsUsed) + " more Mental Points in mental skills.";
+                } else {
+                    // Dexterity Points Distribution
+                    if (totalDexteritySkillsPointsUsed > character.getDp()) {
+                        instruction += "Remove " + (totalDexteritySkillsPointsUsed - character.getDp()) + " Dexterity Points from dexterity skills.";
+                    } else if (totalDexteritySkillsPointsUsed < character.getDp()) {
+                        instruction += "Distribute " + (character.getDp() - totalDexteritySkillsPointsUsed) + " more Dexterity Points in dexterity skills.";
+                    } else {
+                        // Social Points Distribution
                         int totalSocialSkillsPointsUsed = character.getDiplomacy() + character.getIntimidation() + character.getStreetWise() + character.getNegotiation() + character.getDeception() + character.getAction() + character.getFlirt();
                         if (totalSocialSkillsPointsUsed > character.getSp()) {
                             instruction += "Remove " + (totalSocialSkillsPointsUsed - character.getSp()) + " Social Points from social skills.";
                         } else if (totalSocialSkillsPointsUsed < character.getSp()) {
                             instruction += "Distribute " + (character.getSp() - totalSocialSkillsPointsUsed) + " more Social Points in social skills.";
-                        }
-                        // If all points are correctly distributed
-                        else {
+                        } else {
+                            // If all points are correctly distributed
                             instruction = "All points distributed. Review your character or press Save.";
                         }
                     }
@@ -283,9 +280,8 @@ public class CreateCharacterActivity extends AppCompatActivity {
         }
         instructionTextView.setText(instruction);
         setSkillValuesAndModifiers();
-
-
     }
+
 
     private void setSkillValuesAndModifiers() {
         // Physical Skills
@@ -330,7 +326,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
         setSkillValueAndModifier(modNegotiation, character.getNegotiation(), character.getModSoc());
         setSkillValueAndModifier(modDeception, character.getDeception(), character.getModSoc());
         setSkillValueAndModifier(modAction, character.getAction(), character.getModSoc());
-        setSkillValueAndModifier( modFlirt, character.getFlirt(), character.getModSoc());
+        setSkillValueAndModifier(modFlirt, character.getFlirt(), character.getModSoc());
     }
 
     private void setSkillValueAndModifier(TextView modTextView, int skillValue, int attributeModifier) {
