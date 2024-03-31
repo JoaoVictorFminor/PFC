@@ -28,6 +28,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/binIconImageView"
+        android:layout_width="44dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:padding="8dp"
+        android:src="@drawable/bin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/starIconImageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/characterAgeTextView"
