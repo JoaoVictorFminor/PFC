@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
     private EditText dexterityAttributesEditText;
     private EditText mentalAttributesEditText;
     private EditText socialAttributesEditText;
+    private ImageView backButton;
 
 
     // EditTexts for Values
@@ -45,7 +47,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
         characterNameEditText = findViewById(R.id.characterNameEditText);
         characterAgeEditText = findViewById(R.id.characterAgeEditText);
         saveButton = findViewById(R.id.saveButton); // Initialize the button, make sure to have it in your layout
-
+        backButton = findViewById(R.id.backButton);
 
         // EditTexts for Values
         valMeleeWeapons = findViewById(R.id.valMeleeWeapons);
@@ -127,6 +129,15 @@ public class CreateCharacterActivity extends AppCompatActivity {
         modFlirt = findViewById(R.id.modFlirt);
 
         instructionTextView = findViewById(R.id.instructionTextView);
+
+
+        if (getIntent().hasExtra("characterName")) {
+            String characterName = getIntent().getStringExtra("characterName");
+            character.readCharacterFromJson(this, characterName); // Load character from JSON
+            fillUIWithCharacterInfo(); // Method to fill UI with the loaded character info
+        }
+
+
         setupSkillValueTextWatchers();
 
 
@@ -143,7 +154,12 @@ public class CreateCharacterActivity extends AppCompatActivity {
             }
         });
 
-
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -413,5 +429,111 @@ public class CreateCharacterActivity extends AppCompatActivity {
         } catch (NumberFormatException e) {
             return 0; // Default to 0 if parsing fails
         }
+    }
+
+
+    private void fillUIWithCharacterInfo() {
+        // Basic character information
+        characterNameEditText.setText(character.getName());
+        characterAgeEditText.setText(String.valueOf(character.getAge()));
+
+        // Attributes
+        physicalAttributesEditText.setText(String.valueOf(character.getBaseValuePhys()));
+        dexterityAttributesEditText.setText(String.valueOf(character.getBaseValueDex()));
+        mentalAttributesEditText.setText(String.valueOf(character.getBaseValueMent()));
+        socialAttributesEditText.setText(String.valueOf(character.getBaseValueSoc()));
+
+        // Skills Values
+        valMeleeWeapons.setText(String.valueOf(character.getMelleWeapons()));
+        valBrawl.setText(String.valueOf(character.getBrawl()));
+        valImposition.setText(String.valueOf(character.getImposition()));
+        valAthletics.setText(String.valueOf(character.getAthletics()));
+        valRange.setText(String.valueOf(character.getRange()));
+        valMath.setText(String.valueOf(character.getMath()));
+        valForgery.setText(String.valueOf(character.getForgery()));
+        valAlchemy.setText(String.valueOf(character.getAlchemy()));
+        valNaturalSciences.setText(String.valueOf(character.getNaturalSciences()));
+        valPhiliology.setText(String.valueOf(character.getPhiliology()));
+        valStrategy.setText(String.valueOf(character.getStrategy()));
+        valEngineering.setText(String.valueOf(character.getEngineering()));
+        valLaw.setText(String.valueOf(character.getLaw()));
+        valAppraise.setText(String.valueOf(character.getAppraise()));
+        valInvestigate.setText(String.valueOf(character.getInvestigate()));
+        valMedicine.setText(String.valueOf(character.getMedicine()));
+        valOccult.setText(String.valueOf(character.getOccult()));
+        valPsychology.setText(String.valueOf(character.getPsychology()));
+        valFirstAid.setText(String.valueOf(character.getFirstAid()));
+        valSurvival.setText(String.valueOf(character.getSurvival()));
+        valLockPicking.setText(String.valueOf(character.getLockPicking()));
+        valSleightOfHand.setText(String.valueOf(character.getSleightOfHand()));
+        valHorseRiding.setText(String.valueOf(character.getHorseRiding()));
+        valLocksmith.setText(String.valueOf(character.getLocksmith()));
+        valFirearms.setText(String.valueOf(character.getFirearms()));
+        valStealth.setText(String.valueOf(character.getStealth()));
+        valThrowable.setText(String.valueOf(character.getThrowable()));
+        valPerception.setText(String.valueOf(character.getPerception()));
+        valCraft.setText(String.valueOf(character.getCraft()));
+        valDiplomacy.setText(String.valueOf(character.getDiplomacy()));
+        valIntimidation.setText(String.valueOf(character.getIntimidation()));
+        valStreetWise.setText(String.valueOf(character.getStreetWise()));
+        valNegotiation.setText(String.valueOf(character.getNegotiation()));
+        valDeception.setText(String.valueOf(character.getDeception()));
+        valAction.setText(String.valueOf(character.getAction()));
+        valFlirt.setText(String.valueOf(character.getFlirt()));
+
+        // Recalculate modifiers based on attributes, as attributes might have been updated from JSON
+        character.calculateAttributeMod();
+        // Update modifiers for skills based on attributes
+        updateSkillModifiers();
+    }
+
+    private void updateSkillModifiers() {
+        // Physical skill modifiers
+        modMeleeWeapons.setText(getModifierText(character.getModPhys()));
+        modBrawl.setText(getModifierText(character.getModPhys()));
+        modImposition.setText(getModifierText(character.getModPhys()));
+        modAthletics.setText(getModifierText(character.getModPhys()));
+        modRange.setText(getModifierText(character.getModPhys()));
+
+        // Dexterity skill modifiers
+        modLockPicking.setText(getModifierText(character.getModDex()));
+        modSleightOfHand.setText(getModifierText(character.getModDex()));
+        modHorseRiding.setText(getModifierText(character.getModDex()));
+        modLocksmith.setText(getModifierText(character.getModDex()));
+        modFirearms.setText(getModifierText(character.getModDex()));
+        modStealth.setText(getModifierText(character.getModDex()));
+        modThrowable.setText(getModifierText(character.getModDex()));
+        modPerception.setText(getModifierText(character.getModDex()));
+        modCraft.setText(getModifierText(character.getModDex()));
+
+        // Mental skill modifiers
+        modMath.setText(getModifierText(character.getModMent()));
+        modForgery.setText(getModifierText(character.getModMent()));
+        modAlchemy.setText(getModifierText(character.getModMent()));
+        modNaturalSciences.setText(getModifierText(character.getModMent()));
+        modPhiliology.setText(getModifierText(character.getModMent()));
+        modStrategy.setText(getModifierText(character.getModMent()));
+        modEngineering.setText(getModifierText(character.getModMent()));
+        modLaw.setText(getModifierText(character.getModMent()));
+        modAppraise.setText(getModifierText(character.getModMent()));
+        modInvestigate.setText(getModifierText(character.getModMent()));
+        modMedicine.setText(getModifierText(character.getModMent()));
+        modOccult.setText(getModifierText(character.getModMent()));
+        modPsychology.setText(getModifierText(character.getModMent()));
+        modFirstAid.setText(getModifierText(character.getModMent()));
+        modSurvival.setText(getModifierText(character.getModMent()));
+
+        // Social skill modifiers
+        modDiplomacy.setText(getModifierText(character.getModSoc()));
+        modIntimidation.setText(getModifierText(character.getModSoc()));
+        modStreetWise.setText(getModifierText(character.getModSoc()));
+        modNegotiation.setText(getModifierText(character.getModSoc()));
+        modDeception.setText(getModifierText(character.getModSoc()));
+        modAction.setText(getModifierText(character.getModSoc()));
+        modFlirt.setText(getModifierText(character.getModSoc()));
+    }
+
+    private String getModifierText(int modifier) {
+        return modifier >= 0 ? "+" + modifier : String.valueOf(modifier);
     }
 }

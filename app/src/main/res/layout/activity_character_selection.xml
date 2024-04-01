@@ -7,11 +7,21 @@
 
     <ImageView
         android:id="@+id/characterImageButton"
-        android:layout_width="61dp"
-        android:layout_height="62dp"
-        android:layout_margin="5sp"
+        android:layout_width="33dp"
+        android:layout_height="39dp"
+        android:layout_margin="10dp"
         android:src="@drawable/plus"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="20dp"
+        android:layout_height="29dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/backicon"
+        app:layout_constraintBottom_toBottomOf="@+id/TitleTextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -28,6 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.example.tabletoptools;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,12 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
             // Notify changes to refresh colors and selection indication
             notifyItemChanged(previousSelectedPosition);
             notifyItemChanged(selectedPosition);
+        });
+
+        holder.nameTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CreateCharacterActivity.class);
+            intent.putExtra("characterName", character.getName()); // Pass the character name
+            context.startActivity(intent);
         });
 
         holder.binIconImageView.setOnClickListener(v -> {

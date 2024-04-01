@@ -18,6 +18,7 @@ public class CharacterSelectionActivity extends AppCompatActivity {
     private CharactersAdapter adapter;
     private List<Character> characters;
 
+    private ImageView backButton;
     private ImageView characterImageButton;
 
     @Override
@@ -27,6 +28,7 @@ public class CharacterSelectionActivity extends AppCompatActivity {
 
         charactersRecyclerView = findViewById(R.id.charactersRecyclerView);
         characterImageButton = findViewById(R.id.characterImageButton);
+        backButton = findViewById(R.id.backButton);
 
         // Initial setup of the RecyclerView
         charactersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,6 +40,17 @@ public class CharacterSelectionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
+
+
+
+
     }
 
     @Override
