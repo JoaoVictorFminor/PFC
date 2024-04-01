@@ -141,7 +141,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
         setupSkillValueTextWatchers();
 
 
-        // Set onClickListener for the save butto
+        // Set onClickListener for the save button
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,6 +2,7 @@ package com.example.tabletoptools;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,8 @@ import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private DiceStatistics diceStatistics;
 
     private ConstraintLayout bannerConstraintLayout;
     private ConstraintLayout diceConstraintLayout;
@@ -92,13 +95,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Character character;
 
+    private ImageView statsImageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
+        statsImageButton = findViewById(R.id.profileImageButton);
 
 
 
@@ -255,6 +260,11 @@ public class MainActivity extends AppCompatActivity {
         buttonD20 = findViewById(R.id.buttonD20);
         buttonD100 = findViewById(R.id.buttonD100);
 
+
+        diceStatistics = new DiceStatistics();
+        diceStatistics.readFromJson(this);
+
+
         // Set click listeners for each button
 
         loadCharacterInfo();
@@ -263,6 +273,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CharacterSelectionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        statsImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DiceStatisticsActivity.class);
                 startActivity(intent);
             }
         });
@@ -314,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void diceroll(final int maxNumber) {
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
         final int delayTime = 50; // Time in milliseconds between each number change.
         final int numberOfChanges = 20; // Number of random numbers to display before stopping.
 
@@ -324,15 +343,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (count < numberOfChanges) {
-                    // Generate a random number and display it
+                    // Generate a random number for visual effect and display it
                     int randomNumber = new Random().nextInt(maxNumber) + 1;
                     diceDisplay.setText(String.valueOf(randomNumber));
                     handler.postDelayed(this, delayTime);
                     count++;
                 } else {
-                    // Finally, display the actual final random number
+                    // Finally, generate the actual final random number, display it,
+                    // and update statistics with this number only
                     int finalNumber = new Random().nextInt(maxNumber) + 1;
                     diceDisplay.setText(String.valueOf(finalNumber));
+
+                    // Update statistics with the final number
+                    diceStatistics.updateStatistics(maxNumber, finalNumber);
+                    // Save updated statistics
+                    diceStatistics.writeToJson(MainActivity.this);
                 }
             }
         };

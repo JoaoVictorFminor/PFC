@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateCharacterActivity"/>
+        <activity android:name=".DiceStatisticsActivity" />
         <!-- Include any other activities here -->
     </application>
 </manifest>
