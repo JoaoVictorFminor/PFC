@@ -1,4 +1,5 @@
 package com.example.tabletoptools;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Character character;
 
+    private ImageView noteImageButton;
     private ImageView statsImageButton;
 
     @Override
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         statsImageButton = findViewById(R.id.profileImageButton);
 
-
+        noteImageButton = findViewById(R.id.noteImageButton);
 
         // Initialize the ConstraintLayouts
         bannerConstraintLayout = findViewById(R.id.bannerConstraintLayout);
@@ -277,6 +280,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        noteImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NoteSelectionActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         statsImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,6 +376,7 @@ public class MainActivity extends AppCompatActivity {
         // Start the animation
         handler.post(runnable);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -372,14 +384,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private Character testCharacter(){
+    private Character testCharacter() {
 
         Character character = new Character();
 
         GlobalVariables globalVariables = (GlobalVariables) getApplicationContext();
         String value = globalVariables.getSharedText();
 
-        character.readCharacterFromJson(this,value);
+        character.readCharacterFromJson(this, value);
         character.calculateHp();
         character.setTotalValues();
 
@@ -498,7 +510,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     // Assuming 'character' is your Character instance available in this context
     private void initSpinners() {
         // Initialize each spinner with numbers based on the character's health points for each body part
@@ -529,7 +540,6 @@ public class MainActivity extends AppCompatActivity {
         String modifierText = skillModifier >= 0 ? "+" + skillModifier : String.valueOf(skillModifier);
         modifierTextView.setText(modifierText);
     }
-
 
 
 }

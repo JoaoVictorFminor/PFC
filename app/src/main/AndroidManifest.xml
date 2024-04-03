@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".CreateCharacterActivity"/>
         <activity android:name=".DiceStatisticsActivity" />
+        <activity android:name=".NoteActivity" />
+        <activity android:name=".NoteSelectionActivity" />
         <!-- Include any other activities here -->
     </application>
 </manifest>
