@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Base application theme colors -->
+    <color name="colorPrimary">#008577</color> <!-- Primary color for the app -->
+    <color name="colorPrimaryDark">#00574B</color> <!-- Dark variant of the primary color -->
+    <color name="colorAccent">#D81B60</color> <!-- Accent color that contrasts with the primary color -->
+
+    <!-- Common UI colors -->
+    <color name="colorBackground">#FFFFFF</color> <!-- Background color for screens/views -->
+    <color name="colorText">#000000</color> <!-- Primary text color -->
+    <color name="colorTextSecondary">#666666</color>
 </resources>

@@ -1,12 +1,16 @@
 package com.example.tabletoptools;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.File;
 
@@ -27,6 +31,8 @@ public class NoteActivity extends AppCompatActivity {
         noteContent = findViewById(R.id.noteContent);
         backButton = findViewById(R.id.backButton);
 
+        updateIconsColor();
+
         // Check if a noteId was passed in the intent, if not generate a new one
         noteId = getIntent().getStringExtra("noteId");
         if (noteId == null) {
@@ -44,6 +50,7 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onPause() {
@@ -70,6 +77,23 @@ public class NoteActivity extends AppCompatActivity {
             String content = parts.length > 1 ? parts[1] : "";
             noteTitle.setText(title);
             noteContent.setText(content);
+        }
+    }
+
+    private void updateIconsColor() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true); // Use a universally recognized attribute
+        int color = typedValue.data;
+
+        updateImageViewColor(R.id.backButton, R.drawable.backicon, color);
+    }
+
+    private void updateImageViewColor(int imageViewId, int drawableId, int color) {
+        ImageView imageView = findViewById(imageViewId);
+        if (imageView != null) {
+            Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(this, drawableId));
+            DrawableCompat.setTint(drawable, color);
+            imageView.setImageDrawable(drawable);
         }
     }
 }

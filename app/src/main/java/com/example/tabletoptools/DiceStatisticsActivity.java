@@ -1,9 +1,13 @@
 package com.example.tabletoptools;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +29,7 @@ public class DiceStatisticsActivity extends AppCompatActivity {
         diceStatistics.readFromJson(this);
 
         // Display the statistics for all dice types
+        updateIconsColor();
         displayStatistics();
 
         Button clearAllButton = findViewById(R.id.clearAllButton);
@@ -50,6 +55,7 @@ public class DiceStatisticsActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void displayStatistics() {
         // Displaying statistics for D4
@@ -93,5 +99,21 @@ public class DiceStatisticsActivity extends AppCompatActivity {
     private void updateTextView(int textViewId, String text) {
         TextView textView = findViewById(textViewId);
         textView.setText(text);
+    }
+
+    private void updateIconsColor() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true); // Use a universally recognized attribute
+        int color = typedValue.data;
+        updateImageViewColor(R.id.backButton, R.drawable.backicon, color);
+    }
+
+    private void updateImageViewColor(int imageViewId, int drawableId, int color) {
+        ImageView imageView = findViewById(imageViewId);
+        if (imageView != null) {
+            Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(this, drawableId));
+            DrawableCompat.setTint(drawable, color);
+            imageView.setImageDrawable(drawable);
+        }
     }
 }

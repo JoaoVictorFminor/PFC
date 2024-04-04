@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tabletoptools.R;
@@ -51,13 +55,30 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Character character = characters.get(position);
         holder.nameTextView.setText(character.getName());
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
+        int primaryTextColor = typedValue.data;
 
         // Change color if this character is selected
         if (selectedPosition == position) {
             holder.nameTextView.setTextColor(Color.GREEN); // Selected character's name in green
         } else {
-            holder.nameTextView.setTextColor(Color.BLACK); // Other characters' names in black
+            holder.nameTextView.setTextColor(primaryTextColor);
         }
+
+        Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(holder.itemView.getContext(), R.drawable.bin));
+        DrawableCompat.setTint(drawable, primaryTextColor);
+        holder.binIconImageView.setImageDrawable(drawable);
+
+        Drawable drawable2 = DrawableCompat.wrap(AppCompatResources.getDrawable(holder.itemView.getContext(), R.drawable.star));
+        DrawableCompat.setTint(drawable2, primaryTextColor);
+        holder.starIconImageView.setImageDrawable(drawable2);
+
+
+
+
+
+
 
         // Update the selected position and global variable when the star icon is clicked
         holder.starIconImageView.setOnClickListener(v -> {

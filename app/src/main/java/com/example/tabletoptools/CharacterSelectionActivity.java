@@ -1,10 +1,14 @@
 package com.example.tabletoptools;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,8 +34,10 @@ public class CharacterSelectionActivity extends AppCompatActivity {
         characterImageButton = findViewById(R.id.characterImageButton);
         backButton = findViewById(R.id.backButton);
 
+
         // Initial setup of the RecyclerView
         charactersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        updateIconsColor();
 
         characterImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +59,29 @@ public class CharacterSelectionActivity extends AppCompatActivity {
 
     }
 
+    private void updateIconsColor() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true); // Use a universally recognized attribute
+        int color = typedValue.data;
+
+        updateImageViewColor(R.id.characterImageButton, R.drawable.plus, color); // Assuming plus is your add icon drawable
+        updateImageViewColor(R.id.backButton, R.drawable.backicon, color);
+    }
+
+    private void updateImageViewColor(int imageViewId, int drawableId, int color) {
+        ImageView imageView = findViewById(imageViewId);
+        if (imageView != null) {
+            Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(this, drawableId));
+            DrawableCompat.setTint(drawable, color);
+            imageView.setImageDrawable(drawable);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         loadCharacters(); // Reload characters from JSON
+        updateIconsColor();
         adapter = new CharactersAdapter(this, characters);
         charactersRecyclerView.setAdapter(adapter); // Refresh adapter
     }

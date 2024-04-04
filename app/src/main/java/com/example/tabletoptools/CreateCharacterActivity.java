@@ -149,7 +149,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
 
                 Log.d("CharacterInfo", "SAVE BUTTON CLICKED");
                 character.saveCharacterToJson(CreateCharacterActivity.this);
-                Toast.makeText(context, "Character Created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateCharacterActivity.this, "Character Created", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

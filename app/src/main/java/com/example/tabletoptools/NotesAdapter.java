@@ -1,12 +1,16 @@
 package com.example.tabletoptools;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
 import java.util.ArrayList;
@@ -38,18 +42,30 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         Note note = notes.get(position);
         holder.noteTitleTextView.setText(note.getTitle());
 
-        // Set the click listener
+        // Resolve the color attribute directly within the adapter context
+        TypedValue typedValue = new TypedValue();
+        holder.itemView.getContext().getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
+        int color = typedValue.data;
+
+        // Correctly access the drawable and set its tint
+        Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(holder.itemView.getContext(), R.drawable.bin));
+        DrawableCompat.setTint(drawable, color);
+        holder.binIconImageView.setImageDrawable(drawable);
+
+        // Set the click listener for the itemView
         holder.itemView.setOnClickListener(view -> {
             if (noteClickListener != null) {
                 noteClickListener.onNoteClick(note);
             }
         });
 
+        // Set the click listener for the bin icon to handle note deletion
         holder.binIconImageView.setOnClickListener(view -> {
             // Here you might want to show a confirmation dialog before deletion
             deleteNote(note, position);
         });
     }
+
     @Override
     public int getItemCount() {
         return notes.size();

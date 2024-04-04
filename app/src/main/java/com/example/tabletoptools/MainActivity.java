@@ -1,10 +1,13 @@
 package com.example.tabletoptools;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,11 +16,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -103,7 +109,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
+        if (prefs.getBoolean("DarkTheme", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.settingsImageButton).setOnClickListener(v -> toggleTheme());
 
 
         statsImageButton = findViewById(R.id.profileImageButton);
@@ -269,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Set click listeners for each button
+
+        updateIconsColor();
 
         loadCharacterInfo();
 
@@ -539,6 +556,39 @@ public class MainActivity extends AppCompatActivity {
         int skillModifier = skillValue + attributeModifier;
         String modifierText = skillModifier >= 0 ? "+" + skillModifier : String.valueOf(skillModifier);
         modifierTextView.setText(modifierText);
+    }
+
+    private void toggleTheme() {
+        SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
+        boolean isDarkTheme = prefs.getBoolean("DarkTheme", false);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("DarkTheme", !isDarkTheme);
+        editor.apply();
+
+        // Apply the theme change by recreating the activity
+        recreate();
+    }
+
+    private void updateIconsColor() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true); // Use a universally recognized attribute
+        int color = typedValue.data;
+
+        updateImageViewColor(R.id.profileImageButton, R.drawable.user_icon, color);
+        updateImageViewColor(R.id.settingsImageButton, R.drawable.gear, color);
+        updateImageViewColor(R.id.noteImageButton, R.drawable.note, color);
+        updateImageViewColor(R.id.characterImageButton, R.drawable.characters, color);
+        updateImageViewColor(R.id.addNoteButton, R.drawable.plus, color); // Assuming plus is your add icon drawable
+        updateImageViewColor(R.id.backButton, R.drawable.backicon, color);
+    }
+
+    private void updateImageViewColor(int imageViewId, int drawableId, int color) {
+        ImageView imageView = findViewById(imageViewId);
+        if (imageView != null) {
+            Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(this, drawableId));
+            DrawableCompat.setTint(drawable, color);
+            imageView.setImageDrawable(drawable);
+        }
     }
 
 

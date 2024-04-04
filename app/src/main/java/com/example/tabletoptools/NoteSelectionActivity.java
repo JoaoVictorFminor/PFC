@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.graphics.drawable.Drawable;
+
+import android.util.TypedValue;
+
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +25,6 @@ public class NoteSelectionActivity extends AppCompatActivity implements NotesAda
     private NotesAdapter adapter;
 
     private ImageView backButton;
-
 
 
     @Override
@@ -37,6 +42,7 @@ public class NoteSelectionActivity extends AppCompatActivity implements NotesAda
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Load existing notes and display them
+        updateIconsColor();
         loadNotes();
 
         // Set an OnClickListener to open NoteActivity for creating a new note
@@ -91,4 +97,23 @@ public class NoteSelectionActivity extends AppCompatActivity implements NotesAda
         adapter = new NotesAdapter(this, notes, this);
         notesRecyclerView.setAdapter(adapter);
     }
+
+    private void updateIconsColor() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true); // Use a universally recognized attribute
+        int color = typedValue.data;
+
+        updateImageViewColor(R.id.addNoteButton, R.drawable.plus, color); // Assuming plus is your add icon drawable
+        updateImageViewColor(R.id.backButton, R.drawable.backicon, color);
     }
+
+    private void updateImageViewColor(int imageViewId, int drawableId, int color) {
+        ImageView imageView = findViewById(imageViewId);
+        if (imageView != null) {
+            Drawable drawable = DrawableCompat.wrap(AppCompatResources.getDrawable(this, drawableId));
+            DrawableCompat.setTint(drawable, color);
+            imageView.setImageDrawable(drawable);
+        }
+    }
+
+}
