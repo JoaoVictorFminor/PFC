@@ -64,4 +64,4 @@ Tabletop Tools is a mobile application designed to enhance the experience of tab
 
 
 
-Projeto por João Victor Vila da Silva
+Projeto by João Victor Vila da Silva
