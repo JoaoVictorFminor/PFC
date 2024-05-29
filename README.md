@@ -46,3 +46,22 @@ Tabletop Tools is a mobile application designed to enhance the experience of tab
 ### Recommended Software Requirements
 - **Operating System:** Android 11 (R) - API Level 30
 - **Development Environment:** Android Studio 4.2 or higher
+
+### Usage
+
+### Create a New Character:
+- Navigate to the character management section.
+- Click on "Add New Character."
+- Fill in the character details and save.
+### Roll Dice:
+- Go to the main screen.
+- Select the type of dice and number of rolls.
+- Click "Roll" to see the results.
+### Take Notes:
+- Open the notes section from the main menu.
+- Click on "Add Note" and start typing.
+- Notes are saved automatically in real-time.
+
+
+
+Projeto por João Victor Vila da Silva
